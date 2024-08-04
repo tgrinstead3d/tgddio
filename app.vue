@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-  <div>
+  <div class="bg-white">
     <NuxtLayout />
   </div>
 </template>
