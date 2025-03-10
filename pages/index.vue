@@ -3,7 +3,6 @@ definePageMeta({
   layout: 'default',
 })
 </script>
-
 <template>
 <Hero />
 </template>
