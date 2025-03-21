@@ -9,5 +9,4 @@ definePageMeta({
   <Services />
   <Testimonials />
   <About />
-  <Footer />
 </template>

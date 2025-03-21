@@ -4,25 +4,25 @@ import { ref } from 'vue';
 const testimonials = ref([
     {
         id: 1,
-        quote: "TGDesign helped us completely transform our online presence. Their attention to detail and creative approach brought our vision to life.",
+        quote: "Tyler at TG Design & Development, LLC transformed our entire digital presence. His comprehensive approach to branding, website design, and content strategy gave us a cohesive identity across all platforms.",
         name: "Sarah Johnson",
         company: "Bright Solutions LLC"
     },
     {
         id: 2,
-        quote: "Working with Tyler was an absolute pleasure. He understood our needs perfectly and delivered a website that exceeded our expectations.",
+        quote: "Tyler's strategic approach to digital brand consulting helped me identify opportunities I hadn't considered. Our social media engagement increased by 78% within three months of implementing his recommendations.",
         name: "Michael Rodriguez",
         company: "Elite Marketing Group"
     },
     {
         id: 3,
-        quote: "Our e-commerce sales increased by 40% after our website redesign. The user experience is seamless and our customers love it!",
+        quote: "After implementing Tyler's SEO and content strategy, our organic search traffic increased by 65% and our e-commerce sales grew by 40% year-over-year.",
         name: "Jennifer Chen",
         company: "Artisan Crafts Co."
     },
     {
         id: 4,
-        quote: "The team at TGDesign provided exceptional service from start to finish. They were responsive, professional, and delivered on time.",
+        quote: "The comprehensive digital rebrand and marketing strategy Tyler developed has completely transformed how we connect with clients. Our lead generation has doubled in six months.",
         name: "David Wilson",
         company: "Pinnacle Real Estate"
     }
@@ -33,7 +33,7 @@ const testimonials = ref([
     <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
-                <h2 class="text-3xl font-semibold text-center mb-10 text-slate-800">What Our Clients Say</h2>
+                <h2 class="text-3xl font-semibold text-center mb-10 text-slate-800">What Clients Say</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div v-for="testimonial in testimonials" :key="testimonial.id"

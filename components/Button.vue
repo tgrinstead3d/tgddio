@@ -9,12 +9,21 @@ const props = defineProps({
 	}
 });
 
+const emit = defineEmits(['quote-click']);
+
 const buttonText = computed(() => props.what || '');
 const buttonClass = computed(() => `btn text-white border-none ${props.color || ''}`);
+
+const handleClick = () => {
+	// Check if this is a quote button
+	if (buttonText.value.toLowerCase().includes('quote')) {
+		emit('quote-click');
+	}
+};
 </script>
 
 <template>
-	<button :class="buttonClass">
+	<button :class="buttonClass" @click="handleClick">
 		{{ buttonText }}
 	</button>
 </template>
