@@ -53,9 +53,6 @@ const socialLinks = [
                     <NuxtLink to="/about/" class="hover:text-white transition-colors duration-300">About</NuxtLink>
                     <NuxtLink to="/services/" class="hover:text-white transition-colors duration-300">Services
                     </NuxtLink>
-                    <NuxtLink to="/work/" class="hover:text-white transition-colors duration-300">My Work</NuxtLink>
-                    <a href="#" class="hover:text-white transition-colors duration-300">Contact</a>
-                    <a href="#" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
                 </div>
             </div>
         </div>
