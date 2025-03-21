@@ -1,14 +1,20 @@
 <script setup>
-	const props = defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
 	what: String,
-	color: String
-	});
+	color: {
+		type: String,
+		default: ''
+	}
+});
+
+const buttonText = computed(() => props.what || '');
+const buttonClass = computed(() => `btn text-white border-none ${props.color || ''}`);
 </script>
+
 <template>
-	<div>
-		<div class="btn text-white border-none ">
-			{{ props.what }}
-			{{ props.color }}
-		</div>
-	</div>
+	<button :class="buttonClass">
+		{{ buttonText }}
+	</button>
 </template>

@@ -4,5 +4,10 @@ definePageMeta({
 })
 </script>
 <template>
-<Hero />
+  <Hero quote="Get A Quote Today!" />
+  <Projects />
+  <Services />
+  <Testimonials />
+  <About />
+  <Footer />
 </template>
