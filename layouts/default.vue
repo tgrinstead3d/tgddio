@@ -4,7 +4,6 @@ import Footer from '../components/Footer.vue';
 
 <template>
   <div class="bg-white">
-    <Wip />
     <Navigation />
     <NuxtPage id="slot" />
     <Footer />
