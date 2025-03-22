@@ -37,7 +37,9 @@
                         </p>
 
                         <div class="mt-6">
-                            <Button what="Learn More About My Approach" class="bg-green-600 hover:bg-green-700" />
+                            <NuxtLink to="/about/">
+                                <Button what="Learn More About My Approach" class="bg-green-600 hover:bg-green-700" />
+                            </NuxtLink>
                         </div>
                     </div>
                 </div>
