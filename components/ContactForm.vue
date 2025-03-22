@@ -2,117 +2,38 @@
 import { ref } from 'vue';
 
 const isOpen = ref(false);
-const isSubmitting = ref(false);
-const submitSuccess = ref(false);
-const formData = ref({
-    name: '',
-    email: '',
-    message: ''
-});
+const formSubmitted = ref(false);
 
-const formErrors = ref({
-    name: '',
-    email: '',
-    message: ''
-});
+// Form state
+const name = ref('');
+const email = ref('');
+const message = ref('');
 
-const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+// Reset the form
+const resetForm = () => {
+    name.value = '';
+    email.value = '';
+    message.value = '';
+    formSubmitted.value = false;
 };
 
-const validateForm = () => {
-    let isValid = true;
-    formErrors.value = {
-        name: '',
-        email: '',
-        message: ''
-    };
-
-    if (!formData.value.name.trim()) {
-        formErrors.value.name = 'Name is required';
-        isValid = false;
-    }
-
-    if (!formData.value.email.trim()) {
-        formErrors.value.email = 'Email is required';
-        isValid = false;
-    } else if (!validateEmail(formData.value.email)) {
-        formErrors.value.email = 'Please enter a valid email';
-        isValid = false;
-    }
-
-    if (!formData.value.message.trim()) {
-        formErrors.value.message = 'Message is required';
-        isValid = false;
-    }
-
-    return isValid;
-};
-
-const handleSubmit = async (event) => {
-    if (!validateForm()) {
-        event.preventDefault();
-        return;
-    }
-
-    isSubmitting.value = true;
-
-    try {
-        // Create form data to submit
-        const formSubmitData = new FormData();
-        formSubmitData.append('form-name', 'contact');
-        formSubmitData.append('name', formData.value.name);
-        formSubmitData.append('email', formData.value.email);
-        formSubmitData.append('message', formData.value.message);
-
-        // Send the data directly using fetch
-        await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formSubmitData).toString()
-        });
-
-        // Show success message
-        submitSuccess.value = true;
-
-        // Reset form
-        formData.value = {
-            name: '',
-            email: '',
-            message: ''
-        };
-
-        // Close the form after 2 seconds
-        setTimeout(() => {
-            closeForm();
-            submitSuccess.value = false;
-        }, 2000);
-    } catch (error) {
-        console.error('Error submitting form:', error);
-    } finally {
-        isSubmitting.value = false;
-    }
-};
-
+// Open the contact form modal
 const openForm = () => {
     isOpen.value = true;
-    // Reset form when opening
-    formData.value = {
-        name: '',
-        email: '',
-        message: ''
-    };
-    formErrors.value = {
-        name: '',
-        email: '',
-        message: ''
-    };
-    submitSuccess.value = false;
+    resetForm();
 };
 
+// Close the contact form modal
 const closeForm = () => {
     isOpen.value = false;
+};
+
+// Handle successful form submission
+const handleSuccess = () => {
+    formSubmitted.value = true;
+    setTimeout(() => {
+        closeForm();
+    }, 3000);
 };
 
 // Expose the openForm method to be called from parent components
@@ -137,7 +58,7 @@ defineExpose({ openForm });
 
                 <!-- Modal Header -->
                 <div class="border-b px-6 py-4 flex justify-between items-center">
-                    <h3 class="text-xl font-semibold text-slate-800">Get a Quote</h3>
+                    <h3 class="text-xl font-semibold text-slate-800">Contact Us</h3>
                     <button @click="closeForm" class="text-gray-400 hover:text-gray-600 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                             class="h-6 w-6">
@@ -149,56 +70,58 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <div v-if="submitSuccess"
-                        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                        <p>Thank you for your message! We'll get back to you soon.</p>
+                    <!-- Success Message -->
+                    <div v-if="formSubmitted" class="text-center p-4">
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                            <p>Thank you for your message! We'll get back to you soon.</p>
+                        </div>
                     </div>
 
-                    <form v-if="!submitSuccess" method="POST" name="contact" data-netlify="true"
-                        netlify-honeypot="bot-field" @submit.prevent="handleSubmit">
+                    <!-- Form -->
+                    <form v-else name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+                        @submit.prevent action="/success" netlify>
+                        <!-- Netlify Form Requirements -->
                         <input type="hidden" name="form-name" value="contact" />
-                        <!-- Honeypot field to avoid spam -->
-                        <p class="hidden">
-                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                        </p>
-
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name <span
-                                    class="text-red-500">*</span></label>
-                            <input id="name" v-model="formData.name" name="name" type="text"
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-600 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline focus:bg-white"
-                                :class="{ 'border-red-500': formErrors.name }" />
-                            <p v-if="formErrors.name" class="text-red-500 text-xs mt-1">{{ formErrors.name }}</p>
+                        <div hidden>
+                            <input name="bot-field" />
                         </div>
 
+                        <!-- Name Field -->
                         <div class="mb-4">
-                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email <span
-                                    class="text-red-500">*</span></label>
-                            <input id="email" v-model="formData.email" name="email" type="email"
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-600 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline focus:bg-white"
-                                :class="{ 'border-red-500': formErrors.email }" />
-                            <p v-if="formErrors.email" class="text-red-500 text-xs mt-1">{{ formErrors.email }}</p>
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
+                                Name <span class="text-red-500">*</span>
+                            </label>
+                            <input id="name" v-model="name" name="name" type="text" required
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
 
+                        <!-- Email Field -->
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <input id="email" v-model="email" name="email" type="email" required
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+
+                        <!-- Message Field -->
                         <div class="mb-6">
-                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message <span
-                                    class="text-red-500">*</span></label>
-                            <textarea id="message" v-model="formData.message" name="message" rows="4"
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-600 bg-gray-50 leading-tight focus:outline-none focus:shadow-outline focus:bg-white"
-                                :class="{ 'border-red-500': formErrors.message }"></textarea>
-                            <p v-if="formErrors.message" class="text-red-500 text-xs mt-1">{{ formErrors.message }}</p>
+                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">
+                                Message <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="message" v-model="message" name="message" rows="4" required
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                         </div>
 
+                        <!-- Form Controls -->
                         <div class="flex justify-end">
                             <button type="button" @click="closeForm"
                                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2 transition-colors">
                                 Cancel
                             </button>
-                            <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
-                                :disabled="isSubmitting">
-                                <span v-if="isSubmitting">Sending...</span>
-                                <span v-else>Submit</span>
+                            <button type="submit" onclick="handleSuccess()"
+                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors">
+                                Submit
                             </button>
                         </div>
                     </form>
