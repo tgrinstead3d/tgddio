@@ -12,7 +12,7 @@
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="w-full md:w-1/3">
                         <div class="rounded-lg overflow-hidden shadow-md">
-                            <img src="/assets/tgdio.svg" alt="TG Design & Development, LLC Logo" loading="lazy"
+                            <img src="/assets/tgdio.png" alt="TG Design & Development, LLC Logo" loading="lazy"
                                 class="w-full h-auto" />
                         </div>
                     </div>

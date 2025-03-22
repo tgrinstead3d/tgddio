@@ -26,48 +26,23 @@ const closeForm = () => {
     isOpen.value = false;
 };
 
-async function handleSubmit(event) {
-    event.preventDefault();
+function handleSubmit(event) {
+    if (isSubmitting.value) {
+        event.preventDefault();
+        return;
+    }
 
-    if (isSubmitting.value) return;
     isSubmitting.value = true;
 
-    // Create the form data object with the form-name field
-    const formData = {
-        'form-name': 'contact',
-        'name': nameInput.value,
-        'email': emailInput.value,
-        'message': messageInput.value
-    };
+    // Let Netlify handle the form submission naturally
+    // We're just doing some UI updates here
+    submitted.value = true;
 
-    try {
-        // Send the form data
-        const response = await fetch('/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams(formData).toString()
-        });
-
-        if (response.ok) {
-            console.log('Form successfully submitted to Netlify');
-            submitted.value = true;
-
-            // Close the form after showing success message
-            setTimeout(() => {
-                closeForm();
-            }, 3000);
-        } else {
-            console.error('Form submission failed', response);
-            failed.value = true;
-        }
-    } catch (error) {
-        console.error('Error submitting form:', error);
-        failed.value = true;
-    } finally {
+    // Close the form after showing success message
+    setTimeout(() => {
         isSubmitting.value = false;
-    }
+        closeForm();
+    }, 3000);
 }
 
 defineExpose({ openForm });
@@ -115,7 +90,7 @@ defineExpose({ openForm });
                     </div>
 
                     <form v-if="!submitted" name="contact" method="POST" data-netlify="true"
-                        netlify-honeypot="bot-field" action="/" @submit.prevent="handleSubmit">
+                        netlify-honeypot="bot-field" @submit="handleSubmit">
                         <!-- Netlify Form Requirements -->
                         <input type="hidden" name="form-name" value="contact" />
                         <div hidden>

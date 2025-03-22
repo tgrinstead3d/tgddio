@@ -1,7 +1,20 @@
 <script setup>
+import { ref } from 'vue';
+import ContactForm from '~/components/ContactForm.vue';
+
 definePageMeta({
     layout: 'default',
 })
+
+// Reference to the contact form component
+const contactFormRef = ref(null);
+
+// Function to open the contact form
+const openContactForm = () => {
+    if (contactFormRef.value) {
+        contactFormRef.value.openForm();
+    }
+};
 </script>
 
 <template>
@@ -293,7 +306,7 @@ definePageMeta({
                         <p class="max-w-2xl mx-auto mb-6 text-gray-300">
                             Let's discuss how I can help your business thrive online with a customized digital strategy.
                         </p>
-                        <a href="#"
+                        <button @click="openContactForm"
                             class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-300">
                             Schedule a Free Consultation
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -301,10 +314,13 @@ definePageMeta({
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Add the ContactForm component at the end of the template -->
+        <ContactForm ref="contactFormRef" />
     </div>
 </template>

@@ -48,12 +48,13 @@ const handleQuoteClick = () => {
             </h2>
 
             <div class="flex flex-col sm:flex-row gap-4 items-center">
-                <Button :what="props.quote" class="bg-green-600 hover:bg-green-700 transition-colors duration-300"
+                <Button :what="props.quote"
+                    class="bg-green-600 hover:bg-green-700 transition-colors duration-300 w-full sm:w-40 justify-center h-12 flex items-center text-base font-medium leading-none"
                     @quote-click="handleQuoteClick" />
                 <NuxtLink to="/services/"
-                    class="inline-flex items-center px-6 py-3 border-2 border-green-600 text-green-600 font-medium rounded-lg hover:bg-green-600 hover:text-white transition-colors duration-300">
+                    class="inline-flex items-center justify-center px-4 border-2 border-green-600 text-green-600 font-medium rounded-lg hover:bg-green-600 hover:text-white transition-colors duration-300 w-full sm:w-40 h-12 text-base leading-none">
                     View Services
-                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

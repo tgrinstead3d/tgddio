@@ -87,7 +87,7 @@ const openContactForm = () => {
             </div>
             <div class="w-full md:w-1/2">
               <div class="rounded-lg overflow-hidden shadow-lg bg-white p-6">
-                <img src="/assets/tgdio.svg" alt="TG Design & Development, LLC Logo" class="w-full h-auto mb-6" />
+                <img src="/assets/tgdio.png" alt="TG Design & Development, LLC Logo" class="w-full h-auto mb-6" />
                 <div class="flex items-center justify-center space-x-6">
                   <a v-for="(platform, index) in ['facebook', 'instagram']" :key="index"
                     :href="`https://${platform}.com/${platform === 'facebook' ? 'tylergrinsteaddesign' : 'txgrinstead'}`"

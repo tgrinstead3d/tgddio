@@ -4,7 +4,7 @@ definePageMeta({
 })
 </script>
 <template>
-  <Hero quote="Get A Quote Today!" />
+  <Hero quote="Get A Quote!" />
   <Projects />
   <Services />
   <About />
