@@ -16,13 +16,6 @@ defineExpose({ openForm });
 
 <template>
     <div>
-        <!-- Hidden form for Netlify to detect at build time -->
-        <form name="contact" netlify hidden>
-            <input type="text" name="name" />
-            <input type="email" name="email" />
-            <textarea name="message"></textarea>
-        </form>
-
         <!-- Modal Background -->
         <div v-if="isOpen" class="fixed inset-0 bg-slate-100 bg-opacity-80 z-50 flex items-center justify-center p-4"
             @click="closeForm">
@@ -44,10 +37,7 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form name="contact" method="POST" data-netlify="true">
-                        <!-- Netlify Form Name -->
-                        <input type="hidden" name="form-name" value="contact" />
-
+                    <form name="contact" method="POST" netlify>
                         <!-- Name Field -->
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
