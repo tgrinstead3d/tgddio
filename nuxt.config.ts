@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     },
   },
 
+  // Set SSR mode
+  ssr: true,
+
   compatibilityDate: '2024-07-12',
   modules: ["@nuxt/content", "@nuxt/image"],
 
@@ -51,10 +54,11 @@ export default defineNuxtConfig({
     }
   },
 
-  // Build optimization
+  // Build optimization and Netlify specific settings
   nitro: {
     compressPublicAssets: true,
-    minify: true
+    minify: true,
+    preset: 'netlify',
   },
 
   // Component lazy loading

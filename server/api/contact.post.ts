@@ -1,6 +1,6 @@
-import { useRuntimeConfig } from '#app'
 import { defineEventHandler, readBody } from 'h3'
 import nodemailer from 'nodemailer'
+import { useRuntimeConfig } from 'nuxt/app'
 
 // This is a placeholder for the actual email sending functionality
 // To implement email sending, you need to:

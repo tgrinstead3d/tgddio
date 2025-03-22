@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+
+# Environment variables for build
+[build.environment]
+  NODE_VERSION = "18"
+  
+[functions]
+  directory = ".output/server"
+
+# Redirect all requests to the SPA
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200 
