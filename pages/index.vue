@@ -7,6 +7,5 @@ definePageMeta({
   <Hero quote="Get A Quote Today!" />
   <Projects />
   <Services />
-  <!-- <Testimonials /> -->
   <About />
 </template>
