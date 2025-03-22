@@ -1,5 +1,16 @@
 <script setup>
-// No data needed as services are now hardcoded in the template
+import { ref } from 'vue';
+import ContactForm from './ContactForm.vue';
+
+// Reference to the contact form component
+const contactFormRef = ref(null);
+
+// Function to open the contact form
+const openContactForm = () => {
+    if (contactFormRef.value) {
+        contactFormRef.value.openForm();
+    }
+};
 </script>
 
 <template>
@@ -111,17 +122,20 @@
                 </div>
 
                 <div class="flex justify-center mt-10">
-                    <NuxtLink to="/services/"
+                    <button @click="openContactForm"
                         class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-300">
-                        View All Services
+                        Get a Quote
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                         </svg>
-                    </NuxtLink>
+                    </button>
                 </div>
             </div>
         </div>
+
+        <!-- Add the ContactForm component -->
+        <ContactForm ref="contactFormRef" />
     </section>
 </template>
