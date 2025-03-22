@@ -1,5 +1,5 @@
-import { useRuntimeConfig } from '#app'
 import { defineEventHandler, readBody } from 'h3'
+import { useRuntimeConfig } from 'nitropack'
 import nodemailer from 'nodemailer'
 
 // This is a placeholder for the actual email sending functionality
