@@ -16,6 +16,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-07-12',
   modules: ["@nuxt/content", "@nuxt/image"],
 
+  // Explicitly set plugins directory
+  plugins: [
+    '~/plugins/netlify.js'
+  ],
+
   // Environment variables
   runtimeConfig: {
     // Private keys that are exposed to the server only

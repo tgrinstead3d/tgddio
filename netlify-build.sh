@@ -1,51 +1,44 @@
 #!/bin/bash
 
 # Netlify build script
+set -e
 
 # Print versions for debugging
 echo "Node version: $(node -v)"
 echo "NPM version: $(npm -v)"
+echo "Directory contents:"
+ls -la
 
-# Install dependencies
-echo "Installing dependencies..."
+# Clean installation
+echo "Installing dependencies with clean install..."
 npm ci
 
-# Try to find the nuxt executable
-NUXT_BIN="./node_modules/.bin/nuxt"
-
-if [ -f "$NUXT_BIN" ]; then
-  echo "Found Nuxt at $NUXT_BIN"
-  NUXT_CMD="$NUXT_BIN"
-else
-  echo "Nuxt not found at $NUXT_BIN, trying alternative installation..."
-  
-  # Install just nuxt from dedicated file
-  echo "Installing Nuxt from dedicated dependencies file..."
-  npm install --no-save --quiet --no-package-lock -g nuxt@3.12.3
-  
-  echo "Trying with npx..."
-  NUXT_CMD="npx nuxt"
+# Verify nuxt module is installed
+echo "Checking for nuxt in node_modules..."
+if [ ! -d "./node_modules/nuxt" ]; then
+  echo "Nuxt not found in node_modules, installing explicitly..."
+  npm install nuxt@3.12.3 --no-save
 fi
 
-# Build Nuxt app using the detected command
-echo "Building with command: $NUXT_CMD build"
-$NUXT_CMD build
-
-# Check if build command succeeded
-if [ $? -ne 0 ]; then
-  echo "First build attempt failed, trying alternative method..."
-  
-  # Try global install as fallback
-  echo "Installing Nuxt globally..."
-  npm install -g nuxt@3.12.3
-  
-  echo "Using global Nuxt..."
-  nuxt build
+# Also ensure @nuxt/image is installed
+echo "Checking for @nuxt/image..."
+if [ ! -d "./node_modules/@nuxt/image" ]; then
+  echo "@nuxt/image not found, installing explicitly..."
+  npm install @nuxt/image --no-save
 fi
+
+# List all installed packages for debugging
+echo "Installed packages:"
+npm list --depth=0
+
+# Run build directly with npx to ensure path resolution
+echo "Building with npx nuxt build..."
+npx nuxt build
 
 # Verify output directory exists
 if [ -d ".output/public" ]; then
   echo "Build successful! Output directory exists."
+  ls -la .output/public
 else
   echo "ERROR: Build failed - output directory not found"
   exit 1
