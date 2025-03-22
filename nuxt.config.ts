@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: process.env.NODE_ENV === 'development' },
+  devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
 
   postcss: {
@@ -9,9 +9,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
-  // Set SSR mode
-  ssr: true,
 
   compatibilityDate: '2024-07-12',
   modules: ["@nuxt/content", "@nuxt/image"],
@@ -37,20 +34,25 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
       ]
+    },
+  },
+
+  // Image optimization
+  image: {
+    quality: 80,
+    format: ['webp', 'avif', 'jpg'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536
     }
   },
 
-  // Image optimization - simplified configuration
-  image: {
-    // Basic configuration 
-    quality: 80,
-    format: ['webp', 'jpg', 'png'],
-    dir: 'assets/images'
-  },
-
-  // Build optimization and Netlify specific settings
+  // Build optimization
   nitro: {
-    preset: 'netlify',
     compressPublicAssets: true,
     minify: true
   },
