@@ -4,47 +4,69 @@ import { ref } from 'vue';
 const isOpen = ref(false);
 const submitted = ref(false);
 const failed = ref(false);
+const isSubmitting = ref(false);
+
+// Form data as refs
+const nameInput = ref('');
+const emailInput = ref('');
+const messageInput = ref('');
 
 const openForm = () => {
     isOpen.value = true;
     submitted.value = false;
     failed.value = false;
+    isSubmitting.value = false;
+    // Reset form inputs
+    nameInput.value = '';
+    emailInput.value = '';
+    messageInput.value = '';
 };
 
 const closeForm = () => {
     isOpen.value = false;
 };
 
-async function submitForm(formData) {
+async function handleSubmit(event) {
+    event.preventDefault();
+
+    if (isSubmitting.value) return;
+    isSubmitting.value = true;
+
+    // Create the form data object with the form-name field
+    const formData = {
+        'form-name': 'contact',
+        'name': nameInput.value,
+        'email': emailInput.value,
+        'message': messageInput.value
+    };
+
     try {
+        // Send the form data
         const response = await fetch('/', {
             method: 'POST',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             body: new URLSearchParams(formData).toString()
         });
 
-        return response.ok;
+        if (response.ok) {
+            console.log('Form successfully submitted to Netlify');
+            submitted.value = true;
+
+            // Close the form after showing success message
+            setTimeout(() => {
+                closeForm();
+            }, 3000);
+        } else {
+            console.error('Form submission failed', response);
+            failed.value = true;
+        }
     } catch (error) {
         console.error('Error submitting form:', error);
-        return false;
-    }
-}
-
-async function handleSubmit(event) {
-    event.preventDefault();
-    const myForm = event.target;
-    const formData = new FormData(myForm);
-
-    const success = await submitForm(formData);
-
-    if (success) {
-        submitted.value = true;
-        // Close the form after 3 seconds of showing success message
-        setTimeout(() => {
-            closeForm();
-        }, 3000);
-    } else {
         failed.value = true;
+    } finally {
+        isSubmitting.value = false;
     }
 }
 
@@ -93,7 +115,7 @@ defineExpose({ openForm });
                     </div>
 
                     <form v-if="!submitted" name="contact" method="POST" data-netlify="true"
-                        netlify-honeypot="bot-field" @submit="handleSubmit">
+                        netlify-honeypot="bot-field" action="/" @submit.prevent="handleSubmit">
                         <!-- Netlify Form Requirements -->
                         <input type="hidden" name="form-name" value="contact" />
                         <div hidden>
@@ -103,21 +125,21 @@ defineExpose({ openForm });
                         <!-- Name Field -->
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
-                            <input id="name" name="name" type="text" required
+                            <input id="name" name="name" v-model="nameInput" type="text" required
                                 class="border rounded w-full py-2 px-3 bg-white" />
                         </div>
 
                         <!-- Email Field -->
                         <div class="mb-4">
                             <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                            <input id="email" name="email" type="email" required
+                            <input id="email" name="email" v-model="emailInput" type="email" required
                                 class="border rounded w-full py-2 px-3 bg-white" />
                         </div>
 
                         <!-- Message Field -->
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 font-bold mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" required
+                            <textarea id="message" name="message" v-model="messageInput" rows="4" required
                                 class="border rounded w-full py-2 px-3 bg-white"></textarea>
                         </div>
 
@@ -127,9 +149,9 @@ defineExpose({ openForm });
                                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2">
                                 Cancel
                             </button>
-                            <button type="submit"
+                            <button type="submit" :disabled="isSubmitting"
                                 class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Submit
+                                {{ isSubmitting ? 'Sending...' : 'Submit' }}
                             </button>
                         </div>
                     </form>
