@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 
 const isOpen = ref(false);
+const isSubmitting = ref(false);
+const submitSuccess = ref(false);
 const formData = ref({
     name: '',
     email: '',
@@ -48,14 +50,49 @@ const validateForm = () => {
     return isValid;
 };
 
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
     if (!validateForm()) {
         event.preventDefault();
         return;
     }
 
-    // Let the form submit naturally to Netlify
-    // The form will be submitted via regular HTML form submission
+    isSubmitting.value = true;
+
+    try {
+        // Create form data to submit
+        const formSubmitData = new FormData();
+        formSubmitData.append('form-name', 'contact');
+        formSubmitData.append('name', formData.value.name);
+        formSubmitData.append('email', formData.value.email);
+        formSubmitData.append('message', formData.value.message);
+
+        // Send the data directly using fetch
+        await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formSubmitData).toString()
+        });
+
+        // Show success message
+        submitSuccess.value = true;
+
+        // Reset form
+        formData.value = {
+            name: '',
+            email: '',
+            message: ''
+        };
+
+        // Close the form after 2 seconds
+        setTimeout(() => {
+            closeForm();
+            submitSuccess.value = false;
+        }, 2000);
+    } catch (error) {
+        console.error('Error submitting form:', error);
+    } finally {
+        isSubmitting.value = false;
+    }
 };
 
 const openForm = () => {
@@ -71,6 +108,7 @@ const openForm = () => {
         email: '',
         message: ''
     };
+    submitSuccess.value = false;
 };
 
 const closeForm = () => {
@@ -111,8 +149,13 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form method="POST" action="/" name="contact" data-netlify="true" netlify-honeypot="bot-field"
-                        @submit.prevent="handleSubmit">
+                    <div v-if="submitSuccess"
+                        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        <p>Thank you for your message! We'll get back to you soon.</p>
+                    </div>
+
+                    <form v-if="!submitSuccess" method="POST" name="contact" data-netlify="true"
+                        netlify-honeypot="bot-field" @submit.prevent="handleSubmit">
                         <input type="hidden" name="form-name" value="contact" />
                         <!-- Honeypot field to avoid spam -->
                         <p class="hidden">
@@ -152,8 +195,10 @@ defineExpose({ openForm });
                                 Cancel
                             </button>
                             <button type="submit"
-                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors">
-                                Submit
+                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
+                                :disabled="isSubmitting">
+                                <span v-if="isSubmitting">Sending...</span>
+                                <span v-else>Submit</span>
                             </button>
                         </div>
                     </form>
