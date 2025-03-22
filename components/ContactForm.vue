@@ -26,23 +26,40 @@ const closeForm = () => {
     isOpen.value = false;
 };
 
-function handleSubmit(event) {
-    if (isSubmitting.value) {
-        event.preventDefault();
-        return;
-    }
+async function handleSubmit(event) {
+    event.preventDefault();
 
+    if (isSubmitting.value) return;
     isSubmitting.value = true;
 
-    // Let Netlify handle the form submission naturally
-    // We're just doing some UI updates here
-    submitted.value = true;
+    const form = event.target;
+    const formData = new FormData(form);
 
-    // Close the form after showing success message
-    setTimeout(() => {
+    try {
+        const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+            submitted.value = true;
+            failed.value = false;
+            // Close the form after showing success message
+            setTimeout(() => {
+                closeForm();
+            }, 3000);
+        } else {
+            failed.value = true;
+            submitted.value = false;
+        }
+    } catch (error) {
+        console.error('Form submission error:', error);
+        failed.value = true;
+        submitted.value = false;
+    } finally {
         isSubmitting.value = false;
-        closeForm();
-    }, 3000);
+    }
 }
 
 defineExpose({ openForm });
