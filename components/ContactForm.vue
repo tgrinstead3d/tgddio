@@ -166,7 +166,7 @@ defineExpose({ openForm });
                         <p>{{ errorMessage }}</p>
                     </div>
 
-                    <form @submit.prevent="handleSubmit" v-if="!submitSuccess">
+                    <form @submit.prevent="handleSubmit" v-if="!submitSuccess" netlify>
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name <span
                                     class="text-red-500">*</span></label>
