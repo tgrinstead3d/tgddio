@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import ContactForm from './ContactForm.vue'
 
+
 const props = defineProps({
     quote: {
         type: String,
@@ -49,7 +50,6 @@ const handleQuoteClick = () => {
             <div class="flex flex-col sm:flex-row gap-4 items-center">
                 <Button :what="props.quote" class="bg-green-600 hover:bg-green-700 transition-colors duration-300"
                     @quote-click="handleQuoteClick" />
-
                 <NuxtLink to="/services/"
                     class="inline-flex items-center px-6 py-3 border-2 border-green-600 text-green-600 font-medium rounded-lg hover:bg-green-600 hover:text-white transition-colors duration-300">
                     View Services
