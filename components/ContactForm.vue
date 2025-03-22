@@ -2,20 +2,64 @@
 import { ref } from 'vue';
 
 const isOpen = ref(false);
+const submitted = ref(false);
+const failed = ref(false);
 
 const openForm = () => {
     isOpen.value = true;
+    submitted.value = false;
+    failed.value = false;
 };
 
 const closeForm = () => {
     isOpen.value = false;
 };
 
+async function submitForm(formData) {
+    try {
+        const response = await fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        });
+
+        return response.ok;
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        return false;
+    }
+}
+
+async function handleSubmit(event) {
+    event.preventDefault();
+    const myForm = event.target;
+    const formData = new FormData(myForm);
+
+    const success = await submitForm(formData);
+
+    if (success) {
+        submitted.value = true;
+        // Close the form after 3 seconds of showing success message
+        setTimeout(() => {
+            closeForm();
+        }, 3000);
+    } else {
+        failed.value = true;
+    }
+}
+
 defineExpose({ openForm });
 </script>
 
 <template>
     <div>
+        <!-- Hidden form for Netlify to detect at build time -->
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+            <input type="text" name="name" />
+            <input type="email" name="email" />
+            <textarea name="message"></textarea>
+        </form>
+
         <!-- Modal Background -->
         <div v-if="isOpen" class="fixed inset-0 bg-slate-100 bg-opacity-80 z-50 flex items-center justify-center p-4"
             @click="closeForm">
@@ -37,7 +81,25 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form name="contact" method="POST" netlify>
+                    <!-- Success Message -->
+                    <div v-if="submitted"
+                        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        <p>Thank you for your message! We'll get back to you soon.</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div v-if="failed" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        <p>There was a problem submitting your form. Please try again.</p>
+                    </div>
+
+                    <form v-if="!submitted" name="contact" method="POST" data-netlify="true"
+                        netlify-honeypot="bot-field" @submit="handleSubmit">
+                        <!-- Netlify Form Requirements -->
+                        <input type="hidden" name="form-name" value="contact" />
+                        <div hidden>
+                            <input name="bot-field" />
+                        </div>
+
                         <!-- Name Field -->
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
