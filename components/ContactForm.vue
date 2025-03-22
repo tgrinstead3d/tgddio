@@ -19,7 +19,7 @@ const validateEmail = (email) => {
     return re.test(email);
 };
 
-const validateForm = (event) => {
+const validateForm = () => {
     let isValid = true;
     formErrors.value = {
         name: '',
@@ -45,11 +45,17 @@ const validateForm = (event) => {
         isValid = false;
     }
 
-    if (isValid) {
-        event.target.submit();
-    } else {
+    return isValid;
+};
+
+const handleSubmit = (event) => {
+    if (!validateForm()) {
         event.preventDefault();
+        return;
     }
+
+    // Let the form submit naturally to Netlify
+    // The form will be submitted via regular HTML form submission
 };
 
 const openForm = () => {
@@ -77,6 +83,13 @@ defineExpose({ openForm });
 
 <template>
     <div>
+        <!-- Hidden form for Netlify to detect at build time -->
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+            <input type="text" name="name" />
+            <input type="email" name="email" />
+            <textarea name="message"></textarea>
+        </form>
+
         <!-- Modal Background -->
         <div v-if="isOpen" class="fixed inset-0 bg-slate-100 bg-opacity-80 z-50 flex items-center justify-center p-4"
             @click="closeForm">
@@ -98,8 +111,14 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form method="POST" name="contact" data-netlify="true" @submit.prevent="validateForm">
+                    <form method="POST" action="/" name="contact" data-netlify="true" netlify-honeypot="bot-field"
+                        @submit.prevent="handleSubmit">
                         <input type="hidden" name="form-name" value="contact" />
+                        <!-- Honeypot field to avoid spam -->
+                        <p class="hidden">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name <span
                                     class="text-red-500">*</span></label>
