@@ -19,7 +19,7 @@ const validateEmail = (email) => {
     return re.test(email);
 };
 
-const validateForm = () => {
+const validateForm = (event) => {
     let isValid = true;
     formErrors.value = {
         name: '',
@@ -45,7 +45,11 @@ const validateForm = () => {
         isValid = false;
     }
 
-    return isValid;
+    if (isValid) {
+        event.target.submit();
+    } else {
+        event.preventDefault();
+    }
 };
 
 const openForm = () => {
@@ -94,7 +98,8 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form name="contact" data-netlify="true" netlify>
+                    <form method="POST" name="contact" data-netlify="true" @submit.prevent="validateForm">
+                        <input type="hidden" name="form-name" value="contact" />
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name <span
                                     class="text-red-500">*</span></label>
