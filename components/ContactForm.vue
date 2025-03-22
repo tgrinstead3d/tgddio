@@ -32,24 +32,33 @@ async function handleSubmit(event) {
     if (isSubmitting.value) return;
     isSubmitting.value = true;
 
-    const form = event.target;
-    const formData = new FormData(form);
-
     try {
-        const response = await fetch('/', {
+        const response = await fetch('/api/contact', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value
+            })
         });
 
         if (response.ok) {
             submitted.value = true;
             failed.value = false;
+            // Reset form
+            nameInput.value = '';
+            emailInput.value = '';
+            messageInput.value = '';
             // Close the form after showing success message
             setTimeout(() => {
                 closeForm();
             }, 3000);
         } else {
+            const error = await response.text();
+            console.error('Form submission failed:', error);
             failed.value = true;
             submitted.value = false;
         }
@@ -67,13 +76,6 @@ defineExpose({ openForm });
 
 <template>
     <div>
-        <!-- Hidden form for Netlify to detect at build time -->
-        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-            <input type="text" name="name" />
-            <input type="email" name="email" />
-            <textarea name="message"></textarea>
-        </form>
-
         <!-- Modal Background -->
         <div v-if="isOpen" class="fixed inset-0 bg-slate-100 bg-opacity-80 z-50 flex items-center justify-center p-4"
             @click="closeForm">
@@ -106,32 +108,25 @@ defineExpose({ openForm });
                         <p>There was a problem submitting your form. Please try again.</p>
                     </div>
 
-                    <form v-if="!submitted" name="contact" method="POST" data-netlify="true"
-                        netlify-honeypot="bot-field" @submit="handleSubmit">
-                        <!-- Netlify Form Requirements -->
-                        <input type="hidden" name="form-name" value="contact" />
-                        <div hidden>
-                            <input name="bot-field" />
-                        </div>
-
+                    <form v-if="!submitted" @submit="handleSubmit">
                         <!-- Name Field -->
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
-                            <input id="name" name="name" v-model="nameInput" type="text" required
+                            <input id="name" v-model="nameInput" type="text" required
                                 class="border rounded w-full py-2 px-3 bg-white" />
                         </div>
 
                         <!-- Email Field -->
                         <div class="mb-4">
                             <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                            <input id="email" name="email" v-model="emailInput" type="email" required
+                            <input id="email" v-model="emailInput" type="email" required
                                 class="border rounded w-full py-2 px-3 bg-white" />
                         </div>
 
                         <!-- Message Field -->
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 font-bold mb-2">Message</label>
-                            <textarea id="message" name="message" v-model="messageInput" rows="4" required
+                            <textarea id="message" v-model="messageInput" rows="4" required
                                 class="border rounded w-full py-2 px-3 bg-white"></textarea>
                         </div>
 
