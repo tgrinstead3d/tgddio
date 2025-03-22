@@ -28,12 +28,18 @@ const closeForm = () => {
     isOpen.value = false;
 };
 
-// Handle successful form submission
-const handleSuccess = () => {
+// Handle form submission
+const handleSubmit = (event) => {
+    // Show success message
     formSubmitted.value = true;
+
+    // Allow the form to be submitted naturally
     setTimeout(() => {
-        closeForm();
-    }, 3000);
+        // Close the form after showing success message
+        setTimeout(() => {
+            closeForm();
+        }, 3000);
+    }, 100);
 };
 
 // Expose the openForm method to be called from parent components
@@ -79,7 +85,7 @@ defineExpose({ openForm });
 
                     <!-- Form -->
                     <form v-else name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-                        @submit.prevent action="/success" netlify>
+                        @submit="handleSubmit">
                         <!-- Netlify Form Requirements -->
                         <input type="hidden" name="form-name" value="contact" />
                         <div hidden>
@@ -92,7 +98,7 @@ defineExpose({ openForm });
                                 Name <span class="text-red-500">*</span>
                             </label>
                             <input id="name" v-model="name" name="name" type="text" required
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-800 bg-white leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
 
                         <!-- Email Field -->
@@ -101,7 +107,7 @@ defineExpose({ openForm });
                                 Email <span class="text-red-500">*</span>
                             </label>
                             <input id="email" v-model="email" name="email" type="email" required
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-800 bg-white leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
 
                         <!-- Message Field -->
@@ -110,7 +116,7 @@ defineExpose({ openForm });
                                 Message <span class="text-red-500">*</span>
                             </label>
                             <textarea id="message" v-model="message" name="message" rows="4" required
-                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                                class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-800 bg-white leading-tight focus:outline-none focus:shadow-outline"></textarea>
                         </div>
 
                         <!-- Form Controls -->
@@ -119,7 +125,7 @@ defineExpose({ openForm });
                                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2 transition-colors">
                                 Cancel
                             </button>
-                            <button type="submit" onclick="handleSuccess()"
+                            <button type="submit"
                                 class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors">
                                 Submit
                             </button>
