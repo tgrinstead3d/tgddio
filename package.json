@@ -5,7 +5,7 @@
   "scripts": {
     "optimize-images": "node optimize-images.js",
     "prebuild": "rm -rf node_modules/.cache",
-    "build": "npm run optimize-images && nuxt build",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -17,14 +17,16 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "nodemailer": "^6.10.0",
     "nuxt": "^3.12.3",
+    "sharp": "^0.33.0",
     "vue": "latest"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.17",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.12.10",
+    "ipx": "^1.6.0",
     "postcss": "^8.4.39",
-    "sharp": "^0.33.0",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "unist-util-position": "^5.0.0"
   }
 }
