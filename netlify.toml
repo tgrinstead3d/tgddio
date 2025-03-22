@@ -1,13 +1,14 @@
 [build]
-  command = "chmod +x netlify-build.sh && ./netlify-build.sh"
+  command = "bash ./netlify-build.sh || node build.js"
   publish = ".output/public"
 
 # Environment variables for build
 [build.environment]
   NODE_VERSION = "18"
   NPM_VERSION = "9"
-  PATH = "node_modules/.bin:$PATH"
+  PATH = "/bin:/usr/bin:node_modules/.bin:$PATH"
   CI = "true"
+  SHELL = "/bin/bash"
   
 [functions]
   node_bundler = "esbuild"

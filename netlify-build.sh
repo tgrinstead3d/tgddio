@@ -1,52 +1,52 @@
 #!/bin/bash
 
 # Netlify build script
+set -e # Exit on error
 
-# Print versions for debugging
+# Print environment info
+echo "Build environment information:"
 echo "Node version: $(node -v)"
 echo "NPM version: $(npm -v)"
+echo "Current directory: $PWD"
+echo "Shell: $SHELL"
+echo "PATH: $PATH"
 
-# Install dependencies
+# Clean install dependencies
 echo "Installing dependencies..."
 npm ci
 
-# Try to find the nuxt executable
-NUXT_BIN="./node_modules/.bin/nuxt"
+# Ensure node_modules/.bin is in PATH
+export PATH="$PWD/node_modules/.bin:$PATH"
 
-if [ -f "$NUXT_BIN" ]; then
-  echo "Found Nuxt at $NUXT_BIN"
-  NUXT_CMD="$NUXT_BIN"
+echo "Checking for nuxt in node_modules..."
+if [ -f "node_modules/.bin/nuxt" ]; then
+    echo "Found nuxt in node_modules/.bin"
+    NUXT_CMD="$PWD/node_modules/.bin/nuxt"
+elif command -v npx >/dev/null 2>&1; then
+    echo "Using npx to run nuxt"
+    NUXT_CMD="npx nuxt"
 else
-  echo "Nuxt not found at $NUXT_BIN, trying alternative installation..."
-  
-  # Install just nuxt from dedicated file
-  echo "Installing Nuxt from dedicated dependencies file..."
-  npm install --no-save --quiet --no-package-lock -g nuxt@3.12.3
-  
-  echo "Trying with npx..."
-  NUXT_CMD="npx nuxt"
+    echo "Installing nuxt globally as fallback..."
+    npm install -g nuxt@3.12.3
+    NUXT_CMD="nuxt"
 fi
 
-# Build Nuxt app using the detected command
-echo "Building with command: $NUXT_CMD build"
+# Build Nuxt app
+echo "Starting Nuxt build with command: $NUXT_CMD build"
 $NUXT_CMD build
 
-# Check if build command succeeded
-if [ $? -ne 0 ]; then
-  echo "First build attempt failed, trying alternative method..."
-  
-  # Try global install as fallback
-  echo "Installing Nuxt globally..."
-  npm install -g nuxt@3.12.3
-  
-  echo "Using global Nuxt..."
-  nuxt build
+# Check build status
+BUILD_STATUS=$?
+if [ $BUILD_STATUS -ne 0 ]; then
+    echo "Build failed with status $BUILD_STATUS"
+    exit $BUILD_STATUS
 fi
 
-# Verify output directory exists
+# Check for output directory
 if [ -d ".output/public" ]; then
-  echo "Build successful! Output directory exists."
+    echo "Build successful! Output directory exists at .output/public"
+    ls -la .output/public
 else
-  echo "ERROR: Build failed - output directory not found"
-  exit 1
+    echo "Build failed: Output directory .output/public not found"
+    exit 1
 fi 

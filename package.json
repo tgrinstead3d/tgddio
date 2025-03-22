@@ -4,8 +4,7 @@
   "type": "module",
   "scripts": {
     "optimize-images": "node optimize-images.js",
-    "prebuild": "rm -rf node_modules/.cache",
-    "build": "npx nuxt build",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
