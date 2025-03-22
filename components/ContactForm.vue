@@ -94,8 +94,7 @@ defineExpose({ openForm });
 
                 <!-- Modal Body -->
                 <div class="px-6 py-4">
-                    <form action="/submit-form" method="POST" name="contact" onsubmit="return validateForm()"
-                        data-netlify="true" netlify>
+                    <form name="contact" data-netlify="true" netlify>
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name <span
                                     class="text-red-500">*</span></label>
