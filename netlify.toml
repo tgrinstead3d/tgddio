@@ -9,6 +9,27 @@
 [functions]
   node_bundler = "esbuild"
   directory = ".output/server"
+  # Increase function size limit (Netlify default is 10MB, 50MB is max allowed)
+  included_files = ["**/*.node"]
+  external_node_modules = ["sharp"]
+
+# Enable post-processing and compression
+[build.processing]
+  skip_processing = false
+  
+[build.processing.css]
+  bundle = true
+  minify = true
+  
+[build.processing.js]
+  bundle = true
+  minify = true
+  
+[build.processing.html]
+  pretty_urls = true
+  
+[build.processing.images]
+  compress = true
 
 # Redirect all requests to the SPA
 [[redirects]]

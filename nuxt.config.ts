@@ -38,12 +38,14 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
       ]
     },
+    // Enable build time chunk splitting
+    buildAssetsDir: '/_nuxt/',
   },
 
   // Image optimization
   image: {
-    quality: 80,
-    format: ['webp', 'avif', 'jpg'],
+    quality: 70, // Reduced quality for smaller file sizes
+    format: ['webp'], // Only use webp for smaller files
     screens: {
       xs: 320,
       sm: 640,
@@ -51,14 +53,35 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       xxl: 1536
+    },
+    // More aggressive optimization
+    providers: {
+      netlify: {
+        options: {
+          // Add netlify image optimization options
+          format: 'webp',
+          quality: 70
+        }
+      }
     }
   },
 
   // Build optimization and Netlify specific settings
   nitro: {
-    compressPublicAssets: true,
+    compressPublicAssets: {
+      gzip: true,
+      brotli: true,
+    },
     minify: true,
-    preset: 'netlify-edge',
+    // Use regular netlify preset instead of edge for smaller bundles
+    preset: 'netlify',
+    // Add route rules for caching static assets
+    routeRules: {
+      '/_nuxt/**': { headers: { 'cache-control': 'public,max-age=31536000,immutable' } },
+      '/assets/**': { headers: { 'cache-control': 'public,max-age=31536000,immutable' } },
+    },
+    // Optimize server bundle size
+    inlineDynamicImports: true,
   },
 
   // Component lazy loading
@@ -69,7 +92,27 @@ export default defineNuxtConfig({
     ]
   },
 
+  // Reduce bundle size with production optimizations
+  vite: {
+    build: {
+      cssMinify: 'lightningcss',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor chunks
+            'vue-vendor': ['vue', 'vue-router'],
+          }
+        }
+      }
+    },
+    optimizeDeps: {
+      include: ['vue', 'vue-router']
+    }
+  },
+
   experimental: {
-    treeshakeClientOnly: true
+    treeshakeClientOnly: true,
+    payloadExtraction: true,
+    renderJsonPayloads: true,
   }
 })
