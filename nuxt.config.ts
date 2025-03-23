@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
-    'nuxt-simple-sitemap'
+    '@nuxtjs/sitemap'
   ],
 
   // Environment variables
@@ -104,7 +104,7 @@ export default defineNuxtConfig({
 
   // Sitemap configuration
   sitemap: {
-    siteUrl: 'https://tgdesign.io'
+    hostname: 'https://tgdesign.io'
   },
 
   // Build optimization
