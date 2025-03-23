@@ -31,7 +31,7 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Brad's LaserPro Studio</h3>
                             <p class="text-gray-600 mb-4">Laser engraving business showcasing their custom creations and
-                                services through an elegant portfolio website.</p>
+                                link to their shop.</p>
                             <a href="https://www.laserprostudio.com" target="_blank" rel="noopener noreferrer"
                                 class="text-green-600 hover:text-green-800 font-medium">Visit Website →</a>
                         </div>
