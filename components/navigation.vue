@@ -63,9 +63,6 @@ const openQuoteForm = () => {
           <NuxtLink @click="closeMenu" :key="'services-mobile'" to="/services/"
             class="text-slate-950 p-3 border-b border-slate-200 hover:bg-slate-100 hover:text-green-600">Services
           </NuxtLink>
-          <a @click="closeMenu" href="#contact"
-            class="text-slate-950 p-3 border-b border-slate-200 hover:bg-slate-100 hover:text-green-600">Contact</a>
-          <div class="p-3">
             <div @click="openQuoteForm"
               class="bg-[#2bbf60] rounded-lg p-2 text-center cursor-pointer hover:bg-green-600 transition-all duration-500">
               <span class="text-white font-bold">Get A Quote</span>
