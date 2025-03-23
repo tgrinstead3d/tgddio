@@ -74,5 +74,4 @@ const openQuoteForm = () => {
 
     <!-- Contact Form Component -->
     <ContactForm ref="contactFormRef" />
-  </div>
 </template>
