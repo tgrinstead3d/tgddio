@@ -11,7 +11,12 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-12',
-  modules: ["@nuxt/content", "@nuxt/image"],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image',
+    'nuxt-simple-sitemap',
+    'nuxt-schema-org'
+  ],
 
   // Environment variables
   runtimeConfig: {
@@ -20,7 +25,7 @@ export default defineNuxtConfig({
     emailPassword: process.env.EMAIL_PASSWORD,
     // Public keys that are exposed to the client
     public: {
-      // publicKey: 'publicValue'
+      siteUrl: 'https://tgdesign.io'
     }
   },
 
@@ -30,9 +35,37 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en'
       },
+      title: 'Tyler Grinstead | Web Developer & Designer',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'description',
+          content: 'Tyler Grinstead is a web developer and designer specializing in creating beautiful, functional, and user-friendly websites and applications.'
+        },
+        // Open Graph / Facebook
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: 'Tyler Grinstead | Web Developer & Designer' },
+        {
+          property: 'og:description',
+          content: 'Tyler Grinstead is a web developer and designer specializing in creating beautiful, functional, and user-friendly websites and applications.'
+        },
+        { property: 'og:image', content: '/og-image.jpg' },
+        // Twitter
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Tyler Grinstead | Web Developer & Designer' },
+        {
+          name: 'twitter:description',
+          content: 'Tyler Grinstead is a web developer and designer specializing in creating beautiful, functional, and user-friendly websites and applications.'
+        },
+        { name: 'twitter:image', content: '/og-image.jpg' },
+        // Additional SEO tags
+        { name: 'format-detection', content: 'telephone=no' },
+        { name: 'theme-color', content: '#ffffff' }
+      ],
       link: [
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://tgdesign.io' }
       ]
     },
   },
@@ -40,7 +73,7 @@ export default defineNuxtConfig({
   // Image optimization
   image: {
     quality: 80,
-    format: ['webp', 'avif', 'jpg'],
+    format: ['webp'],
     screens: {
       xs: 320,
       sm: 640,
@@ -49,6 +82,16 @@ export default defineNuxtConfig({
       xl: 1280,
       xxl: 1536
     }
+  },
+
+  // Sitemap configuration
+  sitemap: {
+    siteUrl: 'https://tgdesign.io'
+  },
+
+  // Schema.org configuration
+  schemaOrg: {
+    host: 'https://tgdesign.io'
   },
 
   // Build optimization
@@ -66,6 +109,8 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    treeshakeClientOnly: true
+    inlineSSRStyles: false,
+    viewTransition: true,
+    renderJsonPayloads: true
   }
 })
