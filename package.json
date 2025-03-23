@@ -16,7 +16,6 @@
     "ipx": "^3.0.3",
     "nodemailer": "^6.10.0",
     "nuxt": "^3.12.3",
-    "nuxt-schema-org": "^5.0.4",
     "nuxt-simple-sitemap": "^4.4.1",
     "vue": "latest"
   },

@@ -14,8 +14,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
-    'nuxt-simple-sitemap',
-    'nuxt-schema-org'
+    'nuxt-simple-sitemap'
   ],
 
   // Environment variables
@@ -66,6 +65,25 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://tgdesign.io' }
+      ],
+      // Add JSON-LD structured data directly
+      script: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Tyler Grinstead',
+            url: 'https://tgdesign.io',
+            jobTitle: 'Web Developer & Designer',
+            description: 'Tyler Grinstead is a web developer and designer specializing in creating beautiful, functional, and user-friendly websites and applications.',
+            image: 'https://tgdesign.io/og-image.jpg',
+            sameAs: [
+              'https://github.com/tgrinstead',
+              'https://linkedin.com/in/tyler-grinstead'
+            ]
+          })
+        }
       ]
     },
   },
@@ -87,11 +105,6 @@ export default defineNuxtConfig({
   // Sitemap configuration
   sitemap: {
     siteUrl: 'https://tgdesign.io'
-  },
-
-  // Schema.org configuration
-  schemaOrg: {
-    host: 'https://tgdesign.io'
   },
 
   // Build optimization
