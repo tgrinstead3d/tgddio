@@ -5,14 +5,16 @@ export default defineNuxtConfig({
 
   postcss: {
     plugins: {
-      tailwindcss: {},
+      'tailwindcss/nesting': {},
+      tailwindcss: {
+        config: './tailwind.config.cjs'
+      },
       autoprefixer: {},
     },
   },
 
   compatibilityDate: '2024-07-12',
   modules: [
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/sitemap'
   ],
@@ -63,7 +65,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#ffffff' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
         { rel: 'canonical', href: 'https://tgdesign.io' }
       ],
       // Add JSON-LD structured data directly
