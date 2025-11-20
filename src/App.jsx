@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Menu,
-  X,
   ArrowRight,
-  ShieldCheck,
-  TrendingUp,
-  Users,
-  Layers,
   Award,
   CheckCircle2,
-  Mail,
-  Linkedin,
-  Twitter,
-  Sun,
-  Moon,
   Code2,
-  Palette,
-  LineChart,
   Facebook,
-  Instagram
+  Instagram,
+  Layers,
+  LineChart,
+  Linkedin,
+  Mail,
+  Menu,
+  Moon,
+  Palette,
+  ShieldCheck,
+  Sun,
+  TrendingUp,
+  Twitter,
+  Users,
+  X
 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -444,31 +444,34 @@ const App = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                title: "Nexus Financial",
-                category: "FinTech Platform",
-                desc: "Complete digital transformation for a next-gen wealth management platform. Focused on trust, speed, and user clarity.",
-                image: "/nexus_financial.png"
+                title: "Smalls and Petite",
+                category: "E-Commerce / Local Business",
+                desc: "A boutique local vendor creating custom yard sign decorations. We built a digital presence to showcase their unique, personalized creations.",
+                image: "/smalls_and_petite.jpg",
+                link: "https://www.smallsandpetite.com"
               },
               {
-                title: "Vanguard Estates",
-                category: "Real Estate",
-                desc: "Luxury property showcase with immersive 3D tours and high-performance lead generation funnels.",
-                image: "/vanguard_estates.png"
+                title: "Brad's Welding",
+                category: "Local Business / Services",
+                desc: "A local mobile welding shop bringing years of expertise to the community.",
+                image: "/brads_welding.webp",
+                link: "https://www.bradsweldingohio.com"
               },
               {
-                title: "Lumina Health",
-                category: "Healthcare App",
-                desc: "Patient-first interface design that simplifies complex medical data into actionable insights.",
-                image: "/lumina_health.png"
-              },
-              {
-                title: "Apex Logistics",
-                category: "SaaS Dashboard",
-                desc: "Mission-critical fleet management system handling real-time data visualization for global operations.",
-                image: "/apex_logistics.png"
+                title: "Brad's Laserpro Studio",
+                category: "Customization Service",
+                desc: "A laser etching and customization service.",
+                image: "/laserpro_studio.jpeg",
+                link: "https://www.laserprostudio.com"
               }
             ].map((project, idx) => (
-              <div key={idx} className={`group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer`}>
+              <a 
+                key={idx} 
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer block`}
+              >
                 {/* Project Image */}
                 <div className="absolute inset-0">
                   <img
@@ -497,14 +500,8 @@ const App = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <button className={`px-8 py-4 border ${theme.borderStrong} hover:${theme.border} ${isDark ? 'hover:bg-stone-800' : 'hover:bg-stone-200'} ${theme.text} rounded-xl font-bold text-lg transition-all inline-flex items-center gap-2`}>
-              View Full Portfolio
-            </button>
           </div>
         </div>
       </section>
