@@ -20,11 +20,11 @@ import {
   X
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import HeroBackground from './HeroBackground';
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false); // Default to Light mode
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
 
   // Handle scroll effects for navbar styling changes
@@ -61,27 +61,27 @@ const App = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
-  // Theme classes mapping
+  // Theme classes mapping - Dark Mode Only
   const theme = {
-    bg: isDark ? 'bg-stone-950' : 'bg-stone-50',
-    text: isDark ? 'text-stone-100' : 'text-stone-900',
-    textMuted: isDark ? 'text-stone-400' : 'text-stone-600',
+    bg: 'bg-slate-950',
+    text: 'text-slate-100',
+    textMuted: 'text-slate-400',
     // Nav specific themes
-    navIslandBg: isDark ? 'bg-stone-900/80' : 'bg-white/80',
-    navBorder: isDark ? 'border-stone-700/50' : 'border-white/50',
+    navIslandBg: 'bg-slate-900/80',
+    navBorder: 'border-slate-700/50',
 
-    cardBg: isDark ? 'bg-stone-950' : 'bg-white',
-    cardBgAlt: isDark ? 'bg-stone-900' : 'bg-stone-100',
-    border: isDark ? 'border-stone-800' : 'border-stone-200',
-    borderStrong: isDark ? 'border-stone-700' : 'border-stone-300',
-    accentText: isDark ? 'text-teal-400' : 'text-teal-600',
-    accentBg: isDark ? 'bg-teal-600' : 'bg-teal-600',
-    secondaryText: isDark ? 'text-amber-400' : 'text-amber-600',
-    shadow: isDark ? 'shadow-stone-900/50' : 'shadow-stone-200/50',
+    cardBg: 'bg-slate-950',
+    cardBgAlt: 'bg-slate-900',
+    border: 'border-slate-800',
+    borderStrong: 'border-slate-700',
+    accentText: 'text-cyan-400',
+    accentBg: 'bg-cyan-600',
+    secondaryText: 'text-fuchsia-400',
+    shadow: 'shadow-slate-900/50',
   };
 
   return (
-    <div className={`min-h-screen ${theme.bg} ${theme.text} font-sans selection:bg-teal-500 selection:text-white transition-colors duration-500`}>
+    <div className={`min-h-screen ${theme.bg} ${theme.text} font-sans selection:bg-cyan-500 selection:text-white transition-colors duration-500`}>
 
       {/* MODERN FLOATING NAVBAR 
         - Fixed positioning but with padding from top to create "Island" effect
@@ -109,8 +109,8 @@ const App = () => {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg flex items-center justify-center shadow-lg">
-                <span className="text-stone-900 font-bold">TG</span>
+              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg">
+                <span className="text-slate-900 font-bold">TG</span>
               </div>
               <div className="flex flex-col leading-tight text-left">
                 <span className="text-lg font-bold tracking-tighter whitespace-nowrap">TG Design & Development</span>
@@ -119,15 +119,15 @@ const App = () => {
           </div>
 
           {/* Desktop Nav - Centered Links */}
-          <div className="hidden lg:flex items-center justify-center gap-1 bg-stone-100/5 rounded-full px-2 py-1 border border-transparent">
+          <div className="hidden lg:flex items-center justify-center gap-1 bg-slate-100/5 rounded-full px-2 py-1 border border-transparent">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 className={`
                   relative px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition-all duration-300
-                  hover:bg-stone-500/10
-                  ${isDark ? 'text-stone-300 hover:text-teal-400' : 'text-stone-600 hover:text-teal-700'}
+                  hover:bg-slate-500/10
+                  text-slate-300 hover:text-cyan-400
                 `}
               >
                 {link.name}
@@ -135,42 +135,19 @@ const App = () => {
             ))}
           </div>
 
-          {/* Right Side Actions (Theme + CTA) */}
+          {/* Right Side Actions (CTA) */}
           <div className="hidden lg:flex items-center gap-4 shrink-0">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className={`
-                w-10 h-10 rounded-full flex items-center justify-center transition-colors border
-                ${isDark ? 'bg-stone-800 border-stone-700 hover:bg-stone-700' : 'bg-white border-stone-200 hover:bg-stone-50'}
-              `}
-              title="Toggle Theme"
-            >
-              {isDark ? <Moon size={18} className="text-teal-400" /> : <Sun size={18} className="text-amber-500" />}
-            </button>
-
-            <button className={`px-5 py-2.5 border ${isDark ? 'border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20' : 'bg-stone-900 text-white hover:bg-stone-800'} rounded-xl transition-all duration-300 text-sm font-bold uppercase tracking-wider shadow-lg cursor-pointer`}>
+            <button className={`px-5 py-2.5 border border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400 hover:bg-fuchsia-500/20 rounded-xl transition-all duration-300 text-sm font-bold uppercase tracking-wider shadow-lg cursor-pointer`}>
               Book Now
             </button>
           </div>
 
           {/* Mobile/Tablet Controls */}
           <div className="lg:hidden flex items-center gap-3 z-50">
-            {/* Mobile Theme Toggle */}
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className={`
-                w-10 h-10 rounded-full flex items-center justify-center transition-colors border
-                ${isDark ? 'bg-stone-800 border-stone-700' : 'bg-stone-100 border-stone-200'}
-              `}
-            >
-              {isDark ? <Moon size={18} className="text-teal-400" /> : <Sun size={18} className="text-amber-500" />}
-            </button>
-
             <button
               className={`
                 w-10 h-10 rounded-full flex items-center justify-center transition-colors
-                ${isMobileMenuOpen ? 'bg-stone-100 text-stone-900' : (isDark ? 'bg-stone-800 text-stone-100' : 'bg-stone-900 text-white')}
+                ${isMobileMenuOpen ? 'bg-slate-100 text-slate-900' : 'bg-slate-800 text-slate-100'}
               `}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle Menu"
@@ -188,7 +165,7 @@ const App = () => {
       <div
         className={`
           fixed inset-0 z-[45] 
-          ${isDark ? 'bg-stone-950/95' : 'bg-white/95'} 
+          bg-slate-950/95
           backdrop-blur-2xl 
           transition-all duration-500 ease-in-out
           flex flex-col justify-center items-center
@@ -203,7 +180,7 @@ const App = () => {
               className={`
                   text-3xl md:text-4xl font-bold tracking-tight transition-all duration-300
                   hover:scale-110
-                  ${isDark ? 'text-stone-100 hover:text-teal-400' : 'text-stone-900 hover:text-teal-600'}
+                  text-slate-100 hover:text-cyan-400
                 `}
               style={{ transitionDelay: `${idx * 50}ms` }}
               onClick={() => setIsMobileMenuOpen(false)}
@@ -212,16 +189,16 @@ const App = () => {
             </a>
           ))}
 
-          <div className="w-16 h-1 bg-stone-200 rounded-full my-4"></div>
+          <div className="w-16 h-1 bg-slate-200 rounded-full my-4"></div>
 
-          <button className="w-full py-4 bg-teal-600 text-white text-xl font-bold rounded-2xl hover:bg-teal-500 shadow-xl shadow-teal-500/20 transition-all">
+          <button className="w-full py-4 bg-cyan-600 text-white text-xl font-bold rounded-2xl hover:bg-cyan-500 shadow-xl shadow-cyan-500/20 transition-all">
             Book Consultation
           </button>
 
           <div className="flex gap-8 mt-4">
-            <Twitter className="text-stone-400 hover:text-teal-500 transition-colors" />
-            <Linkedin className="text-stone-400 hover:text-teal-500 transition-colors" />
-            <Mail className="text-stone-400 hover:text-teal-500 transition-colors" />
+            <Twitter className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            <Linkedin className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            <Mail className="text-slate-400 hover:text-cyan-500 transition-colors" />
           </div>
         </div>
       </div>
@@ -229,21 +206,22 @@ const App = () => {
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center pt-32 pb-12 overflow-hidden">
         {/* Background Elements */}
+        <HeroBackground />
         <div className="absolute inset-0 z-0 transition-opacity duration-1000 pointer-events-none">
-          <div className={`absolute top-[-10%] right-[-5%] w-[600px] h-[600px] ${isDark ? 'bg-teal-900/20' : 'bg-teal-200/40'} rounded-full blur-[120px]`}></div>
-          <div className={`absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] ${isDark ? 'bg-amber-900/20' : 'bg-amber-200/40'} rounded-full blur-[100px]`}></div>
-          <div className={`absolute top-[40%] left-[20%] w-[300px] h-[300px] ${isDark ? 'bg-stone-800/30' : 'bg-stone-300/30'} rounded-full blur-[80px]`}></div>
+          <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-fuchsia-900/20 rounded-full blur-[100px]"></div>
+          <div className="absolute top-[40%] left-[20%] w-[300px] h-[300px] bg-slate-800/30 rounded-full blur-[80px]"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
-            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${isDark ? 'bg-stone-900 border-stone-700' : 'bg-white border-stone-200 shadow-sm'} ${theme.secondaryText} text-xs font-bold tracking-widest uppercase animate-fade-in`}>
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border-slate-700 ${theme.secondaryText} text-xs font-bold tracking-widest uppercase animate-fade-in`}>
+              <span className="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse"></span>
               Digital Brand Consultant
             </div>
             <h1 className={`text-5xl md:text-7xl font-bold leading-tight ${theme.text}`}>
               Build a Brand That <br />
-              <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isDark ? 'from-teal-400 to-teal-200' : 'from-teal-600 to-teal-400'}`}>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-200">
                 Commands Respect.
               </span>
             </h1>
@@ -252,11 +230,11 @@ const App = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(45,212,191,0.3)] flex items-center justify-center gap-2 group">
+              <button className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] flex items-center justify-center gap-2 group">
                 Start Your Transformation
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
-              <button className={`px-8 py-4 border ${theme.borderStrong} hover:${theme.border} ${isDark ? 'hover:bg-stone-900' : 'hover:bg-stone-100'} ${theme.textMuted} rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2`}>
+              <button className={`px-8 py-4 border ${theme.borderStrong} hover:${theme.border} hover:bg-slate-900 ${theme.textMuted} rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2`}>
                 View Our Work
               </button>
             </div>
@@ -266,30 +244,30 @@ const App = () => {
           <div className="hidden lg:flex justify-center items-center relative">
             <div className="relative w-96 h-[500px]">
               {/* Decorative Cards Stack */}
-              <div className={`absolute top-0 left-8 w-full h-full border ${theme.border} ${isDark ? 'bg-stone-900/50' : 'bg-stone-100/50'} rounded-2xl transform rotate-6 transition-transform duration-500 hover:rotate-3`}></div>
-              <div className={`absolute top-4 left-4 w-full h-full border ${theme.borderStrong} ${isDark ? 'bg-stone-900/80' : 'bg-stone-100/80'} rounded-2xl transform rotate-3 transition-transform duration-500 hover:rotate-1`}></div>
+              <div className={`absolute top-0 left-8 w-full h-full border ${theme.border} bg-slate-900/50 rounded-2xl transform rotate-6 transition-transform duration-500 hover:rotate-3`}></div>
+              <div className={`absolute top-4 left-4 w-full h-full border ${theme.borderStrong} bg-slate-900/80 rounded-2xl transform rotate-3 transition-transform duration-500 hover:rotate-1`}></div>
 
               {/* Main Visual Card */}
-              <div className={`absolute top-8 left-0 w-full h-full ${isDark ? 'bg-stone-900' : 'bg-white'} border ${theme.borderStrong} rounded-2xl shadow-2xl overflow-hidden flex flex-col relative`}>
-                <div className={`absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] ${isDark ? 'from-amber-200 via-stone-900 to-stone-900' : 'from-amber-400 via-white to-white'}`}></div>
+              <div className={`absolute top-8 left-0 w-full h-full bg-slate-900 border ${theme.borderStrong} rounded-2xl shadow-2xl overflow-hidden flex flex-col relative`}>
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-fuchsia-200 via-slate-900 to-slate-900"></div>
 
                 <div className="p-8 flex-1 flex flex-col justify-center items-center text-center space-y-6 z-10">
-                  <div className={`w-20 h-20 ${isDark ? 'bg-stone-800' : 'bg-stone-100'} rounded-full flex items-center justify-center border ${isDark ? 'border-amber-500/30' : 'border-amber-500/20'} shadow-[0_0_30px_rgba(251,191,36,0.1)]`}>
+                  <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center border border-fuchsia-500/30 shadow-[0_0_30px_rgba(232,121,249,0.1)]">
                     <ShieldCheck size={40} className={theme.accentText} />
                   </div>
                   <div>
                     <h3 className={`text-2xl font-bold ${theme.text} mb-2`}>Unshakeable Foundation</h3>
                     <p className={theme.textMuted}>We don't just design; we fortify your market position.</p>
                   </div>
-                  <div className={`w-full h-px bg-gradient-to-r from-transparent ${isDark ? 'via-stone-700' : 'via-stone-200'} to-transparent`}></div>
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
                   <div className="flex justify-between w-full px-4">
                     <div className="text-center">
                       <div className={`text-2xl font-bold ${theme.secondaryText}`}>5+</div>
-                      <div className="text-xs text-stone-500 uppercase">Years</div>
+                      <div className="text-xs text-slate-500 uppercase">Years</div>
                     </div>
                     <div className="text-center">
                       <div className={`text-2xl font-bold ${theme.accentText}`}>100%</div>
-                      <div className="text-xs text-stone-500 uppercase">Commitment</div>
+                      <div className="text-xs text-slate-500 uppercase">Commitment</div>
                     </div>
                   </div>
                 </div>
@@ -299,7 +277,7 @@ const App = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-stone-600 hidden lg:block">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-600 hidden lg:block">
           <ArrowRight className="rotate-90" size={24} />
         </div>
       </header>
@@ -346,8 +324,8 @@ const App = () => {
                   desc: "Like the craftsmanship of old, every pixel is placed with intent and precision."
                 },
               ].map((item, idx) => (
-                <div key={idx} className={`${theme.cardBg} p-8 rounded-xl border ${theme.border} ${isDark ? 'hover:border-teal-500/30' : 'hover:border-teal-500/50'} transition-all group shadow-sm`}>
-                  <item.icon className={`text-stone-500 ${isDark ? 'group-hover:text-teal-400' : 'group-hover:text-teal-600'} transition-colors mb-4`} size={32} />
+                <div key={idx} className={`${theme.cardBg} p-8 rounded-xl border ${theme.border} hover:border-cyan-500/30 transition-all group shadow-sm`}>
+                  <item.icon className="text-slate-500 group-hover:text-cyan-400 transition-colors mb-4" size={32} />
                   <h4 className={`text-xl font-bold ${theme.text} mb-3`}>{item.title}</h4>
                   <p className={`${theme.textMuted} text-sm leading-relaxed`}>{item.desc}</p>
                 </div>
@@ -359,7 +337,7 @@ const App = () => {
 
       {/* Services Section */}
       <section id="services" className="py-16 md:py-24 relative overflow-hidden transition-colors duration-500">
-        <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${isDark ? 'from-stone-900 via-teal-900 to-stone-900' : 'from-stone-100 via-teal-200 to-stone-100'}`}></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-900 via-cyan-900 to-slate-900"></div>
 
         <div className="max-w-7xl mx-auto px-6 text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold ${theme.text} mb-6`}>Forge Your Legacy</h2>
@@ -371,55 +349,55 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
           {/* Service Card 1: Brand Identity (Standard) */}
           <div className={`group relative ${theme.cardBgAlt} rounded-2xl overflow-hidden transition-transform hover:-translate-y-2 shadow-lg`}>
-            <div className="absolute top-0 left-0 w-full h-2 bg-teal-500"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-cyan-500"></div>
             <div className="p-8 pt-12">
               <h3 className={`text-2xl font-bold ${theme.text} mb-4 group-hover:${theme.accentText} transition-colors`}>Brand Identity</h3>
               <ul className="space-y-3 mb-8">
                 {['Logo & Visual Systems', 'Brand Voice Development', 'Style Guides', 'Collateral Design'].map(i => (
                   <li key={i} className={`flex items-center gap-3 ${theme.textMuted} text-sm`}>
-                    <CheckCircle2 size={16} className={isDark ? 'text-teal-600' : 'text-teal-500'} /> {i}
+                    <CheckCircle2 size={16} className="text-cyan-600" /> {i}
                   </li>
                 ))}
               </ul>
-              <div className={`w-12 h-12 ${isDark ? 'bg-stone-800' : 'bg-white'} rounded-full flex items-center justify-center group-hover:bg-teal-500/10 transition-colors`}>
-                <Palette className={`text-stone-500 group-hover:${theme.accentText}`} />
+              <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
+                <Palette className={`text-slate-500 group-hover:${theme.accentText}`} />
               </div>
             </div>
           </div>
 
           {/* Service Card 2: Web Development (Popular & Centered) */}
           <div className={`group relative ${theme.cardBg} rounded-2xl overflow-hidden transform md:-translate-y-4 shadow-2xl border ${theme.borderStrong} transition-transform duration-300 hover:-translate-y-2 md:hover:-translate-y-6`}>
-            <div className="absolute top-0 left-0 w-full h-2 bg-amber-400"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-fuchsia-400"></div>
             <div className="p-8 pt-12">
-              <div className="absolute top-4 right-4 px-3 py-1 bg-amber-500/20 text-amber-600 text-xs font-bold rounded-full">POPULAR</div>
+              <div className="absolute top-4 right-4 px-3 py-1 bg-fuchsia-500/20 text-fuchsia-600 text-xs font-bold rounded-full">POPULAR</div>
               <h3 className={`text-2xl font-bold ${theme.text} mb-4 group-hover:${theme.secondaryText} transition-colors`}>Web Development</h3>
               <ul className="space-y-3 mb-8">
                 {['Custom Vue/Nuxt', 'Headless CMS', 'E-commerce Solutions', 'Performance Tuning'].map(i => (
                   <li key={i} className={`flex items-center gap-3 ${theme.textMuted} text-sm`}>
-                    <CheckCircle2 size={16} className="text-amber-500" /> {i}
+                    <CheckCircle2 size={16} className="text-fuchsia-500" /> {i}
                   </li>
                 ))}
               </ul>
-              <div className={`w-12 h-12 ${isDark ? 'bg-stone-700' : 'bg-stone-100'} rounded-full flex items-center justify-center group-hover:bg-amber-500/10 transition-colors`}>
-                <Code2 className={`text-stone-400 group-hover:${theme.secondaryText}`} />
+              <div className="w-12 h-12 bg-slate-700 rounded-full flex items-center justify-center group-hover:bg-fuchsia-500/10 transition-colors">
+                <Code2 className={`text-slate-400 group-hover:${theme.secondaryText}`} />
               </div>
             </div>
           </div>
 
           {/* Service Card 3: Digital Strategy (Standard) */}
           <div className={`group relative ${theme.cardBgAlt} rounded-2xl overflow-hidden transition-transform hover:-translate-y-2 shadow-lg`}>
-            <div className="absolute top-0 left-0 w-full h-2 bg-teal-700"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-cyan-700"></div>
             <div className="p-8 pt-12">
               <h3 className={`text-2xl font-bold ${theme.text} mb-4 group-hover:${theme.accentText} transition-colors`}>Digital Strategy</h3>
               <ul className="space-y-3 mb-8">
                 {['Market Positioning', 'User Experience (UX) Audit', 'Growth Roadmaps', 'Conversion Optimization'].map(i => (
                   <li key={i} className={`flex items-center gap-3 ${theme.textMuted} text-sm`}>
-                    <CheckCircle2 size={16} className={isDark ? 'text-teal-600' : 'text-teal-500'} /> {i}
+                    <CheckCircle2 size={16} className="text-cyan-600" /> {i}
                   </li>
                 ))}
               </ul>
-              <div className={`w-12 h-12 ${isDark ? 'bg-stone-800' : 'bg-white'} rounded-full flex items-center justify-center group-hover:bg-teal-500/10 transition-colors`}>
-                <LineChart className={`text-stone-500 group-hover:${theme.accentText}`} />
+              <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
+                <LineChart className={`text-slate-500 group-hover:${theme.accentText}`} />
               </div>
             </div>
           </div>
@@ -508,18 +486,18 @@ const App = () => {
 
       {/* CTA / Contact Section */}
       <section id="contact" className="py-16 md:py-24 px-6 transition-colors duration-500">
-        <div className={`max-w-5xl mx-auto bg-gradient-to-br ${isDark ? 'from-stone-900 to-stone-950 border-stone-800' : 'from-stone-100 to-white border-stone-200'} rounded-3xl p-8 md:p-16 border text-center relative overflow-hidden shadow-2xl`}>
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-slate-900 to-slate-950 border-slate-800 rounded-3xl p-8 md:p-16 border text-center relative overflow-hidden shadow-2xl">
 
           {/* Abstract Architecture Background for texture */}
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070"
             alt="Abstract Architecture"
-            className={`absolute inset-0 w-full h-full object-cover opacity-[0.03] mix-blend-multiply pointer-events-none ${isDark ? 'invert' : ''}`}
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.03] mix-blend-multiply pointer-events-none invert"
           />
 
           {/* Decorative background glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl -ml-16 -mb-16"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-500/5 rounded-full blur-3xl -ml-16 -mb-16"></div>
 
           <div className="relative z-10">
             <h2 className={`text-3xl md:text-5xl font-bold ${theme.text} mb-6`}>Ready to Build Something Powerful?</h2>
@@ -527,11 +505,11 @@ const App = () => {
               You bring the vision. We bring the strategy and design to make it unshakeable. Let's partner up.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="mailto:tyler@tgdesign.io" className="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white rounded font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2">
+              <a href="mailto:tyler@tgdesign.io" className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2">
                 <Mail size={20} />
                 Start a Project
               </a>
-              <button className={`px-8 py-4 ${isDark ? 'bg-stone-800 hover:bg-stone-700' : 'bg-stone-200 hover:bg-stone-300'} ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}>
+              <button className={`px-8 py-4 bg-slate-800 hover:bg-slate-700 ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}>
                 Schedule a Call
               </button>
             </div>
@@ -551,7 +529,7 @@ const App = () => {
           <div className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto ${theme.cardBg} rounded-2xl shadow-2xl p-8 md:p-12 border ${theme.border} animate-fade-in`}>
             <button
               onClick={() => setIsManifestoOpen(false)}
-              className={`absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 ${isDark ? 'hover:bg-stone-800' : ''} transition-colors`}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-800 transition-colors"
             >
               <X size={24} className={theme.textMuted} />
             </button>
@@ -580,12 +558,12 @@ const App = () => {
       )}
 
       {/* Footer */}
-      <footer className={`${isDark ? 'bg-stone-950 border-stone-900' : 'bg-stone-100 border-stone-200'} border-t py-12 px-6 transition-colors duration-500`}>
+      <footer className="bg-slate-950 border-slate-900 border-t py-12 px-6 transition-colors duration-500">
         <div className="max-w-7xl mx-auto mb-12 grid md:grid-cols-2 gap-12">
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-teal-600 rounded flex items-center justify-center text-xs font-bold text-stone-900">TG</div>
-              <span className={`font-bold text-xl ${isDark ? 'text-stone-300' : 'text-stone-700'}`}>TG Design & Development</span>
+              <div className="w-8 h-8 bg-cyan-600 rounded flex items-center justify-center text-xs font-bold text-slate-900">TG</div>
+              <span className="font-bold text-xl text-slate-300">TG Design & Development</span>
             </div>
             <p className={`${theme.textMuted} max-w-sm`}>
               Forging digital identities that stand the test of time.
@@ -615,15 +593,15 @@ const App = () => {
           </div>
         </div>
 
-        <div className={`max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t ${isDark ? 'border-stone-900' : 'border-stone-200'}`}>
-          <div className="text-stone-500 text-sm">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-slate-900">
+          <div className="text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} TG Design & Development, LLC. All rights reserved.
           </div>
 
           <div className="flex gap-6">
-            <a href="https://www.facebook.com/tylergrinsteaddesign" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-teal-600 transition-colors"><Facebook size={20} /></a>
-            <a href="https://www.instagram.com/txgrinstead/" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-teal-600 transition-colors"><Instagram size={20} /></a>
-            <a href="mailto:tyler@tgdesign.io" className="text-stone-500 hover:text-teal-600 transition-colors"><Mail size={20} /></a>
+            <a href="https://www.facebook.com/tylergrinsteaddesign" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-600 transition-colors"><Facebook size={20} /></a>
+            <a href="https://www.instagram.com/txgrinstead/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-600 transition-colors"><Instagram size={20} /></a>
+            <a href="mailto:tyler@tgdesign.io" className="text-slate-500 hover:text-cyan-600 transition-colors"><Mail size={20} /></a>
           </div>
         </div>
       </footer>
