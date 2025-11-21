@@ -20,12 +20,14 @@ import {
   X
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import BookingModal from './BookingModal';
 import HeroBackground from './HeroBackground';
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   // Handle scroll effects for navbar styling changes
   useEffect(() => {
@@ -137,7 +139,10 @@ const App = () => {
 
           {/* Right Side Actions (CTA) */}
           <div className="hidden lg:flex items-center gap-4 shrink-0">
-            <button className={`px-5 py-2.5 border border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400 hover:bg-fuchsia-500/20 rounded-xl transition-all duration-300 text-sm font-bold uppercase tracking-wider shadow-lg cursor-pointer`}>
+            <button 
+              onClick={() => setIsBookingOpen(true)}
+              className={`px-5 py-2.5 border border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400 hover:bg-fuchsia-500/20 rounded-xl transition-all duration-300 text-sm font-bold uppercase tracking-wider shadow-lg cursor-pointer`}
+            >
               Book Now
             </button>
           </div>
@@ -191,7 +196,13 @@ const App = () => {
 
           <div className="w-16 h-1 bg-slate-200 rounded-full my-4"></div>
 
-          <button className="w-full py-4 bg-cyan-600 text-white text-xl font-bold rounded-2xl hover:bg-cyan-500 shadow-xl shadow-cyan-500/20 transition-all">
+          <button 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setIsBookingOpen(true);
+            }}
+            className="w-full py-4 bg-cyan-600 text-white text-xl font-bold rounded-2xl hover:bg-cyan-500 shadow-xl shadow-cyan-500/20 transition-all"
+          >
             Book Consultation
           </button>
 
@@ -230,7 +241,10 @@ const App = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] flex items-center justify-center gap-2 group">
+              <button 
+                onClick={() => setIsBookingOpen(true)}
+                className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] flex items-center justify-center gap-2 group"
+              >
                 Start Your Transformation
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
@@ -441,14 +455,22 @@ const App = () => {
                 desc: "A laser etching and customization service.",
                 image: "/laserpro_studio.jpeg",
                 link: "https://www.laserprostudio.com"
+              },
+              {
+                title: "SNS Mobile Detailing",
+                category: "Mobile Automotive Detailing",
+                desc: "Mobile automotive detailing business taking great pride in their work and community.",
+                image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=2070",
+                link: "#"
               }
             ].map((project, idx) => (
               <a 
                 key={idx} 
                 href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer block`}
+                target={project.link === '#' ? '_self' : '_blank'}
+                rel={project.link === '#' ? '' : 'noopener noreferrer'}
+                onClick={(e) => project.link === '#' && e.preventDefault()}
+                className={`group relative rounded-2xl overflow-hidden shadow-lg ${project.link === '#' ? 'cursor-default' : 'cursor-pointer'} block`}
               >
                 {/* Project Image */}
                 <div className="absolute inset-0">
@@ -463,21 +485,29 @@ const App = () => {
                 {/* Abstract Pattern Overlay */}
                 <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
 
-                <div className="relative h-96 p-8 flex flex-col justify-end">
-                  <div className={`transform transition-all duration-500 translate-y-4 group-hover:translate-y-0`}>
-                    <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">
-                      {project.category}
-                    </div>
-                    <h4 className="text-3xl font-bold text-white mb-3">{project.title}</h4>
-                    <p className="text-white/90 text-lg opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 delay-100">
-                      {project.desc}
-                    </p>
-
-                    <div className="mt-6 flex items-center gap-2 text-white font-bold opacity-0 transition-opacity duration-500 group-hover:opacity-100 delay-200">
-                      View Case Study <ArrowRight size={18} />
+                {project.link === '#' ? (
+                  <div className="relative h-96 p-8 flex items-center justify-center">
+                    <div className="text-3xl md:text-4xl font-bold text-white uppercase tracking-widest border-4 border-white/20 p-6 rounded-xl backdrop-blur-sm">
+                      Coming Soon
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="relative h-96 p-8 flex flex-col justify-end">
+                    <div className={`transform transition-all duration-500 translate-y-4 group-hover:translate-y-0`}>
+                      <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">
+                        {project.category}
+                      </div>
+                      <h4 className="text-3xl font-bold text-white mb-3">{project.title}</h4>
+                      <p className="text-white/90 text-lg opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 delay-100">
+                        {project.desc}
+                      </p>
+
+                      <div className="mt-6 flex items-center gap-2 text-white font-bold opacity-0 transition-opacity duration-500 group-hover:opacity-100 delay-200">
+                        View Case Study <ArrowRight size={18} />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </a>
             ))}
           </div>
@@ -505,11 +535,17 @@ const App = () => {
               You bring the vision. We bring the strategy and design to make it unshakeable. Let's partner up.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a href="mailto:tyler@tgdesign.io" className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2">
+              <button 
+                onClick={() => setIsBookingOpen(true)}
+                className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2"
+              >
                 <Mail size={20} />
                 Start a Project
-              </a>
-              <button className={`px-8 py-4 bg-slate-800 hover:bg-slate-700 ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}>
+              </button>
+              <button 
+                onClick={() => setIsBookingOpen(true)}
+                className={`px-8 py-4 bg-slate-800 hover:bg-slate-700 ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}
+              >
                 Schedule a Call
               </button>
             </div>
@@ -556,6 +592,8 @@ const App = () => {
           </div>
         </div>
       )}
+
+      <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
 
       {/* Footer */}
       <footer className="bg-slate-950 border-slate-900 border-t py-12 px-6 transition-colors duration-500">
