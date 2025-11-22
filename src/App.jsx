@@ -542,12 +542,14 @@ const App = () => {
                 <Mail size={20} />
                 Start a Project
               </button>
-              <button 
-                onClick={() => setIsBookingOpen(true)}
+              <a 
+                href="https://meetings-na2.hubspot.com/tyler-grinstead"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`px-8 py-4 bg-slate-800 hover:bg-slate-700 ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}
               >
                 Schedule a Call
-              </button>
+              </a>
             </div>
           </div>
         </div>
