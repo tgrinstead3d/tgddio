@@ -524,6 +524,34 @@ const App = () => {
             alt="Abstract Architecture"
             className="absolute inset-0 w-full h-full object-cover opacity-[0.03] mix-blend-multiply pointer-events-none invert"
           />
+          <div className="relative z-10">
+            <h2 className={`text-3xl md:text-5xl font-bold ${theme.text} mb-6`}>Ready to Build Something Powerful?</h2>
+            <p className={`${theme.textMuted} text-lg mb-10 max-w-2xl mx-auto`}>
+              You bring the vision. We bring the strategy and design to make it unshakeable. Let's partner up.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <button 
+                onClick={() => setIsBookingOpen(true)}
+                className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Mail size={20} />
+                Start a Project
+              </button>
+              <a 
+                href="https://meetings-na2.hubspot.com/tyler-grinstead"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`px-8 py-4 bg-slate-800 hover:bg-slate-700 ${theme.text} rounded font-bold text-lg transition-all flex items-center justify-center gap-2`}
+              >
+                Schedule a Call
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Manifesto Modal */}
+      {isManifestoOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
