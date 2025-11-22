@@ -503,7 +503,7 @@ const App = () => {
                       </p>
 
                       <div className="mt-6 flex items-center gap-2 text-white font-bold opacity-0 transition-opacity duration-500 group-hover:opacity-100 delay-200">
-                        View Case Study <ArrowRight size={18} />
+                        Visit Site <ArrowRight size={18} />
                       </div>
                     </div>
                   </div>
