@@ -248,9 +248,9 @@ const App = () => {
                 Start Your Transformation
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
-              <button className={`px-8 py-4 border ${theme.borderStrong} hover:${theme.border} hover:bg-slate-900 ${theme.textMuted} rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2`}>
+              <a href="#work" className={`px-8 py-4 border ${theme.borderStrong} hover:${theme.border} hover:bg-slate-900 ${theme.textMuted} rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2`}>
                 View Our Work
-              </button>
+              </a>
             </div>
           </div>
 
