@@ -24,7 +24,8 @@ const Work = ({ theme, onOpenCaseStudy }) => {
               category: "E-Commerce / Local Business",
               desc: "A boutique local vendor creating custom yard sign decorations. We built a digital presence to showcase their unique, personalized creations.",
               image: "/smalls_and_petite.jpg",
-              link: "https://smallsandpetite.netlify.app"
+              link: "https://smallsandpetite.netlify.app",
+              hasCaseStudy: true
             },
             {
               title: "Plank's Cafe & Pizzeria",
