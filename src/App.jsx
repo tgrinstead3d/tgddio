@@ -3,6 +3,7 @@ import BookingModal from './components/BookingModal';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
+import LaserProCaseStudyModal from './components/LaserProCaseStudyModal';
 import ManifestoModal from './components/ManifestoModal';
 import Navbar from './components/Navbar';
 import Philosophy from './components/Philosophy';
@@ -19,6 +20,7 @@ const App = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isSNSModalOpen, setIsSNSModalOpen] = useState(false);
   const [isPlanksModalOpen, setIsPlanksModalOpen] = useState(false);
+  const [isLaserProModalOpen, setIsLaserProModalOpen] = useState(false);
 
   // Handle scroll effects for navbar styling changes
   useEffect(() => {
@@ -40,12 +42,12 @@ const App = () => {
 
   // Prevent body scroll when manifesto is open
   useEffect(() => {
-    if (isManifestoOpen || isSNSModalOpen || isPlanksModalOpen) {
+    if (isManifestoOpen || isSNSModalOpen || isPlanksModalOpen || isLaserProModalOpen) {
       document.body.style.overflow = 'hidden';
     } else if (!isMobileMenuOpen) {
       document.body.style.overflow = 'unset';
     }
-  }, [isManifestoOpen, isMobileMenuOpen, isSNSModalOpen, isPlanksModalOpen]);
+  }, [isManifestoOpen, isMobileMenuOpen, isSNSModalOpen, isPlanksModalOpen, isLaserProModalOpen]);
 
   const navLinks = [
     { name: 'Philosophy', href: '#philosophy' },
@@ -84,6 +86,8 @@ const App = () => {
             setIsSNSModalOpen(true);
           } else if (project.title === "Plank's Cafe & Pizzeria") {
             setIsPlanksModalOpen(true);
+          } else if (project.title === "LaserPro Studio") {
+            setIsLaserProModalOpen(true);
           }
         }}
       />
@@ -108,6 +112,12 @@ const App = () => {
       <PlanksCaseStudyModal
         isOpen={isPlanksModalOpen}
         onClose={() => setIsPlanksModalOpen(false)}
+        theme={theme}
+      />
+
+      <LaserProCaseStudyModal
+        isOpen={isLaserProModalOpen}
+        onClose={() => setIsLaserProModalOpen(false)}
         theme={theme}
       />
 

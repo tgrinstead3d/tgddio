@@ -45,11 +45,12 @@ const Work = ({ theme, onOpenCaseStudy }) => {
             },
             */
             {
-              title: "Brad's Laserpro Studio",
-              category: "Customization Service",
-              desc: "A laser etching and customization service.",
-              image: "/laserpro_studio.jpeg",
-              link: "https://www.laserprostudio.com"
+              title: "LaserPro Studio",
+              category: "Conceptual Redesign / Case Study",
+              desc: "The Director's Cut: Industrial dark mode aesthetic for a precision fabrication studio.",
+              image: "/laser.png",
+              link: "/bradswelding_redesign.html",
+              hasCaseStudy: true
             },
             {
               title: "SNS Mobile Detailing",
