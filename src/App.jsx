@@ -7,6 +7,7 @@ import ManifestoModal from './components/ManifestoModal';
 import Navbar from './components/Navbar';
 import Philosophy from './components/Philosophy';
 import Services from './components/Services';
+import SNSCaseStudyModal from './components/SNSCaseStudyModal';
 import Work from './components/Work';
 import { theme } from './theme';
 
@@ -15,6 +16,7 @@ const App = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isSNSModalOpen, setIsSNSModalOpen] = useState(false);
 
   // Handle scroll effects for navbar styling changes
   useEffect(() => {
@@ -36,12 +38,12 @@ const App = () => {
 
   // Prevent body scroll when manifesto is open
   useEffect(() => {
-    if (isManifestoOpen) {
+    if (isManifestoOpen || isSNSModalOpen) {
       document.body.style.overflow = 'hidden';
     } else if (!isMobileMenuOpen) {
       document.body.style.overflow = 'unset';
     }
-  }, [isManifestoOpen, isMobileMenuOpen]);
+  }, [isManifestoOpen, isMobileMenuOpen, isSNSModalOpen]);
 
   const navLinks = [
     { name: 'Philosophy', href: '#philosophy' },
@@ -73,7 +75,14 @@ const App = () => {
 
       <Services theme={theme} />
 
-      <Work theme={theme} />
+      <Work 
+        theme={theme} 
+        onOpenCaseStudy={(project) => {
+          if (project.title === "SNS Mobile Detailing") {
+            setIsSNSModalOpen(true);
+          }
+        }}
+      />
 
       <Contact 
         setIsBookingOpen={setIsBookingOpen}
@@ -83,6 +92,12 @@ const App = () => {
       <ManifestoModal 
         isOpen={isManifestoOpen}
         onClose={() => setIsManifestoOpen(false)}
+        theme={theme}
+      />
+
+      <SNSCaseStudyModal
+        isOpen={isSNSModalOpen}
+        onClose={() => setIsSNSModalOpen(false)}
         theme={theme}
       />
 
