@@ -59,18 +59,18 @@ const Hero = ({ setIsBookingOpen, theme }) => {
                   <ShieldCheck size={40} className={theme.accentText} />
                 </div>
                 <div>
-                  <h3 className={`text-2xl font-bold ${theme.text} mb-2`}>Unshakeable Foundation</h3>
+                  <h2 className={`text-2xl font-bold ${theme.text} mb-2`}>Unshakeable Foundation</h2>
                   <p className={theme.textMuted}>We don't just design; we fortify your market position.</p>
                 </div>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
                 <div className="flex justify-between w-full px-4">
                   <div className="text-center">
                     <div className={`text-2xl font-bold ${theme.secondaryText}`}>5+</div>
-                    <div className="text-xs text-slate-500 uppercase">Years</div>
+                    <div className="text-xs text-slate-400 uppercase">Years</div>
                   </div>
                   <div className="text-center">
                     <div className={`text-2xl font-bold ${theme.accentText}`}>100%</div>
-                    <div className="text-xs text-slate-500 uppercase">Commitment</div>
+                    <div className="text-xs text-slate-400 uppercase">Commitment</div>
                   </div>
                 </div>
               </div>

@@ -16,7 +16,7 @@ const Footer = ({ theme }) => {
         </div>
 
         <div>
-          <h3 className={`font-bold uppercase tracking-widest text-sm mb-6 ${theme.accentText}`}>Our Beliefs</h3>
+          <h2 className={`font-bold uppercase tracking-widest text-sm mb-6 ${theme.accentText}`}>Our Beliefs</h2>
           <div className="space-y-4">
             <div>
               <h4 className={`font-bold ${theme.text} mb-1`}>The Internet is for everyone.</h4>
@@ -39,14 +39,14 @@ const Footer = ({ theme }) => {
       </div>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-slate-900">
-        <div className="text-slate-500 text-sm">
+        <div className="text-slate-400 text-sm">
           &copy; {new Date().getFullYear()} TG Design & Development, LLC. All rights reserved.
         </div>
 
         <div className="flex gap-6">
-          <a href="https://www.facebook.com/tylergrinsteaddesign" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-600 transition-colors"><Facebook size={20} /></a>
-          <a href="https://www.instagram.com/txgrinstead/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-cyan-600 transition-colors"><Instagram size={20} /></a>
-          <a href="mailto:tyler@tgdesign.io" className="text-slate-500 hover:text-cyan-600 transition-colors"><Mail size={20} /></a>
+          <a href="https://www.facebook.com/tylergrinsteaddesign" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-400 hover:text-cyan-600 transition-colors"><Facebook size={20} /></a>
+          <a href="https://www.instagram.com/txgrinstead/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-400 hover:text-cyan-600 transition-colors"><Instagram size={20} /></a>
+          <a href="mailto:tyler@tgdesign.io" aria-label="Email" className="text-slate-400 hover:text-cyan-600 transition-colors"><Mail size={20} /></a>
         </div>
       </div>
     </footer>

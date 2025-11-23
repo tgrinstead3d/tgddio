@@ -1,7 +1,7 @@
 export const theme = {
   bg: 'bg-slate-950',
   text: 'text-slate-100',
-  textMuted: 'text-slate-400',
+  textMuted: 'text-slate-300',
   // Nav specific themes
   navIslandBg: 'bg-slate-900/80',
   navBorder: 'border-slate-700/50',

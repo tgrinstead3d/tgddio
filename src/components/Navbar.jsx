@@ -126,9 +126,15 @@ const Navbar = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen, setIsBookin
           </button>
 
           <div className="flex gap-8 mt-4">
-            <Twitter className="text-slate-400 hover:text-cyan-500 transition-colors" />
-            <Linkedin className="text-slate-400 hover:text-cyan-500 transition-colors" />
-            <Mail className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <Twitter className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            </a>
+            <a href="mailto:tyler@tgdesign.io" aria-label="Email">
+              <Mail className="text-slate-400 hover:text-cyan-500 transition-colors" />
+            </a>
           </div>
         </div>
       </div>

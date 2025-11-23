@@ -45,7 +45,7 @@ const Philosophy = ({ setIsManifestoOpen, theme }) => {
               },
             ].map((item, idx) => (
               <div key={idx} className={`${theme.cardBg} p-8 rounded-xl border ${theme.border} hover:border-cyan-500/30 transition-all group shadow-sm`}>
-                <item.icon className="text-slate-500 group-hover:text-cyan-400 transition-colors mb-4" size={32} />
+                <item.icon className="text-slate-400 group-hover:text-cyan-400 transition-colors mb-4" size={32} />
                 <h4 className={`text-xl font-bold ${theme.text} mb-3`}>{item.title}</h4>
                 <p className={`${theme.textMuted} text-sm leading-relaxed`}>{item.desc}</p>
               </div>

@@ -27,7 +27,7 @@ const Services = ({ theme }) => {
               ))}
             </ul>
             <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
-              <Palette className={`text-slate-500 group-hover:${theme.accentText}`} />
+              <Palette className={`text-slate-400 group-hover:${theme.accentText}`} />
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@ const Services = ({ theme }) => {
               ))}
             </ul>
             <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
-              <LineChart className={`text-slate-500 group-hover:${theme.accentText}`} />
+              <LineChart className={`text-slate-400 group-hover:${theme.accentText}`} />
             </div>
           </div>
         </div>
