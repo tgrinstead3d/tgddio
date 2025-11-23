@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plank's Cafe & Pizzeria | Historic German Village Since 1939</title>
+    <meta name="description" content="Serving Columbus' best pizza and beer in the heart of German Village since 1939. View our menu and order today.">
+    
+    <!-- Fonts: Roboto Slab (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Slab:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (CDN for Portfolio Prototype) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config for Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#8B2E2E',     /* Deep Brick Red */
+                            cream: '#FAF7F0',   /* Warm Parchment */
+                            gold: '#D4AF37',    /* Beer/Amber */
+                            dark: '#1A1A1A',
+                            gray: '#4A4A4A'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Roboto Slab"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')",
+                        'texture': "url('https://www.transparenttextures.com/patterns/paper-fibers.png')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        /* Hide scrollbar for horizontal menu scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-brand-cream/95 backdrop-blur-sm border-b border-brand-gold/30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Area -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-red text-brand-gold rounded-full flex items-center justify-center font-serif font-bold text-lg border-2 border-brand-gold">P</div>
+                    <div class="flex flex-col">
+                        <span class="font-serif font-bold text-xl leading-none tracking-tight text-brand-red">PLANK'S</span>
+                        <span class="text-[10px] uppercase tracking-widest text-brand-gray font-bold">Est. 1939</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#menu" class="text-brand-dark hover:text-brand-red font-medium transition">Menu</a>
+                    <a href="#about" class="text-brand-dark hover:text-brand-red font-medium transition">History</a>
+                    <a href="#location" class="text-brand-dark hover:text-brand-red font-medium transition">Location</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-dark p-2 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-cream border-t border-gray-200">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#menu" class="block px-3 py-2 text-base font-medium text-brand-dark hover:bg-brand-gold/10 rounded-md">Menu</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-brand-dark hover:bg-brand-gold/10 rounded-md">History</a>
+                <a href="#location" class="block px-3 py-2 text-base font-medium text-brand-dark hover:bg-brand-gold/10 rounded-md">Location</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative h-[70vh] min-h-[500px] bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center text-center px-4">
+        <div class="max-w-3xl relative z-10">
+            <span class="inline-block py-1 px-3 border border-brand-gold/50 rounded-full bg-black/30 backdrop-blur-md text-brand-gold text-xs font-bold tracking-widest uppercase mb-4">German Village • Columbus</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold text-white mb-6 text-shadow leading-tight">
+                Good Food.<br>
+                <span class="text-brand-gold">Good Friends.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-lg mx-auto font-light">
+                Serving the South Side's favorite pizza, subs, and cold beer for over 85 years.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#menu" class="bg-brand-red hover:bg-red-900 text-white font-bold py-3 px-8 rounded-md shadow-lg transition transform hover:-translate-y-1">
+                    View Menu
+                </a>
+                <a href="tel:6144457221" class="bg-white hover:bg-gray-100 text-brand-dark font-bold py-3 px-8 rounded-md shadow-lg transition">
+                    Order (614) 445-7221
+                </a>
+            </div>
+        </div>
+        
+        <!-- Status Banner -->
+        <div class="absolute bottom-0 w-full bg-brand-dark/90 backdrop-blur text-white py-3 border-t-4 border-brand-gold">
+            <div class="max-w-6xl mx-auto px-4 flex justify-center md:justify-between items-center text-sm">
+                <div id="status-container" class="flex items-center gap-2 font-medium">
+                    <!-- JS will populate this -->
+                    <span class="w-2 h-2 rounded-full bg-gray-500 animate-pulse"></span>
+                    <span id="status-text">Checking hours...</span>
+                </div>
+                <div class="hidden md:block text-gray-400">
+                    <i class="fas fa-map-marker-alt mr-1 text-brand-gold"></i> 743 Parsons Ave, Columbus OH
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU PREVIEW SECTION -->
+    <section id="menu" class="py-16 bg-brand-cream relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl font-bold text-brand-dark mb-2">The Menu</h2>
+                <div class="w-24 h-1 bg-brand-red mx-auto rounded"></div>
+                <p class="mt-4 text-brand-gray">Hand-tossed pizzas and hearty subs.</p>
+            </div>
+
+            <!-- Category Filters (Visual only for concept) -->
+            <div class="flex overflow-x-auto space-x-4 pb-4 mb-8 no-scrollbar justify-start md:justify-center">
+                <button class="flex-shrink-0 bg-brand-red text-white px-6 py-2 rounded-full font-medium text-sm shadow-md">All Items</button>
+                <button class="flex-shrink-0 bg-white text-brand-dark border border-gray-200 px-6 py-2 rounded-full font-medium text-sm hover:border-brand-red transition">Pizza</button>
+                <button class="flex-shrink-0 bg-white text-brand-dark border border-gray-200 px-6 py-2 rounded-full font-medium text-sm hover:border-brand-red transition">Subs</button>
+                <button class="flex-shrink-0 bg-white text-brand-dark border border-gray-200 px-6 py-2 rounded-full font-medium text-sm hover:border-brand-red transition">Starters</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Pizza Section -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition duration-300">
+                    <h3 class="font-serif text-2xl font-bold text-brand-red mb-6 flex items-center">
+                        <i class="fas fa-pizza-slice mr-3 text-brand-gold text-lg"></i> Signature Pizzas
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">The German Village</h4>
+                                <span class="font-serif font-bold text-brand-dark">$16 / $22</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Our classic thin crust topped with pepperoni, sausage, onions, and mild peppers.</p>
+                        </div>
+                        <hr class="border-gray-100">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">Sweet & Spicy</h4>
+                                <span class="font-serif font-bold text-brand-dark">$15 / $21</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Old world pepperoni, hot honey drizzle, and banana peppers.</p>
+                        </div>
+                        <hr class="border-gray-100">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">Veggie Delight</h4>
+                                <span class="font-serif font-bold text-brand-dark">$14 / $19</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Mushrooms, green peppers, onions, black olives, and extra cheese.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subs Section -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition duration-300">
+                    <h3 class="font-serif text-2xl font-bold text-brand-red mb-6 flex items-center">
+                        <i class="fas fa-bread-slice mr-3 text-brand-gold text-lg"></i> Oven-Baked Subs
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">Italian Sub</h4>
+                                <span class="font-serif font-bold text-brand-dark">$11.00</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Salami, ham, pepperoni, provolone, lettuce, tomato, onion, and Italian dressing.</p>
+                        </div>
+                        <hr class="border-gray-100">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">Meatball Splash</h4>
+                                <span class="font-serif font-bold text-brand-dark">$11.50</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Homemade meatballs covered in marinara and melted provolone cheese.</p>
+                        </div>
+                        <hr class="border-gray-100">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="font-bold text-lg group-hover:text-brand-red transition">Steak Hoagie</h4>
+                                <span class="font-serif font-bold text-brand-dark">$12.00</span>
+                            </div>
+                            <p class="text-sm text-brand-gray mt-1">Thin sliced steak with mushroom sauce (or mayo), onions, and cheese.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <button class="text-brand-red font-bold border-b-2 border-brand-red hover:text-red-900 pb-1 transition">Download Full Menu (PDF)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / HISTORY -->
+    <section id="about" class="py-16 bg-brand-dark text-brand-cream relative overflow-hidden">
+        <!-- Background element -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="font-serif text-4xl font-bold mb-6 text-brand-gold">Since 1939</h2>
+                <p class="text-lg leading-relaxed mb-4 text-gray-300">
+                    Long before German Village was the trendy spot it is today, Walter Plank opened his doors on Parsons Avenue. 
+                </p>
+                <p class="text-lg leading-relaxed mb-6 text-gray-300">
+                    Through prohibition, regeneration, and generations of change, one thing has stayed the same: Plank's is where neighbors become friends. Whether you're here for a quick lunch or a long evening on the patio, you're part of our history.
+                </p>
+                <div class="flex gap-4">
+                    <div class="text-center">
+                        <span class="block font-serif text-3xl font-bold text-brand-red">85+</span>
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Years</span>
+                    </div>
+                    <div class="w-px bg-gray-700 h-12"></div>
+                    <div class="text-center">
+                        <span class="block font-serif text-3xl font-bold text-brand-red">3rd</span>
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Generation</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-4 border-2 border-brand-gold/30 rounded-lg transform translate-x-4 translate-y-4"></div>
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bar interior atmosphere" class="rounded-lg shadow-2xl relative z-10 grayscale hover:grayscale-0 transition duration-700 ease-in-out">
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & HOURS -->
+    <section id="location" class="py-16 bg-brand-cream">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+            <!-- Map Placeholder -->
+            <div class="bg-gray-200 rounded-xl overflow-hidden h-64 md:h-auto relative group cursor-pointer shadow-inner">
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=39.9484,-82.9829&zoom=15&size=600x400&maptype=roadmap&markers=color:red%7C39.9484,-82.9829&key=" alt="Map Location" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span class="bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow text-sm font-bold text-brand-dark group-hover:scale-110 transition">
+                        <i class="fas fa-directions mr-1 text-brand-red"></i> Get Directions
+                    </span>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="flex flex-col justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-serif text-2xl font-bold text-brand-dark mb-6">Visit Us</h3>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start">
+                        <div class="w-8 text-brand-red mt-1"><i class="fas fa-map-marker-alt text-xl"></i></div>
+                        <div>
+                            <p class="font-bold text-brand-dark">743 Parsons Ave</p>
+                            <p class="text-brand-gray">Columbus, OH 43206</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 text-brand-red mt-1"><i class="fas fa-phone text-xl"></i></div>
+                        <div>
+                            <p class="font-bold text-brand-dark">(614) 445-7221</p>
+                            <p class="text-brand-gray">Call for carry-out orders</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="font-bold text-brand-dark mb-3 text-sm uppercase tracking-wide border-b border-gray-100 pb-2">Hours</h4>
+                <div class="grid grid-cols-2 gap-y-2 text-sm">
+                    <div class="text-brand-gray">Mon - Thu</div>
+                    <div class="font-medium text-right">11:00 AM - 10:00 PM</div>
+                    <div class="text-brand-gray">Fri - Sat</div>
+                    <div class="font-medium text-right">11:00 AM - 11:00 PM</div>
+                    <div class="text-brand-gray">Sunday</div>
+                    <div class="font-medium text-right">12:00 PM - 8:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-gray-500 py-12 text-center text-sm border-t border-gray-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="mb-6">
+                <span class="font-serif font-bold text-2xl text-white">PLANK'S</span>
+            </div>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="hover:text-brand-gold transition"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="hover:text-brand-gold transition"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="hover:text-brand-gold transition"><i class="fab fa-twitter fa-lg"></i></a>
+            </div>
+            <p class="mb-2">&copy; 2025 Plank's Cafe & Pizzeria. All rights reserved.</p>
+            <p class="text-xs text-gray-600">
+                This is a conceptual redesign for educational purposes.<br>
+                Designed & Developed by [Your Name].
+            </p>
+        </div>
+    </footer>
+
+    <!-- FLOATING ACTION BUTTON (FAB) -->
+    <a href="tel:6144457221" class="fixed bottom-6 right-6 bg-brand-red text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl hover:bg-red-700 hover:scale-110 transition transform z-50 border-4 border-white/20">
+        <i class="fas fa-phone"></i>
+    </a>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Open/Closed Logic
+        function checkStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            const time = hour + (minute / 60);
+
+            let isOpen = false;
+            let closeTime = "";
+
+            // Logic based on real hours
+            if (day >= 1 && day <= 4) { // Mon-Thu: 11am - 10pm
+                if (time >= 11 && time < 22) isOpen = true;
+                closeTime = "10:00 PM";
+            } else if (day === 5 || day === 6) { // Fri-Sat: 11am - 11pm
+                if (time >= 11 && time < 23) isOpen = true;
+                closeTime = "11:00 PM";
+            } else if (day === 0) { // Sun: 12pm - 8pm
+                if (time >= 12 && time < 20) isOpen = true;
+                closeTime = "8:00 PM";
+            }
+
+            const statusText = document.getElementById('status-text');
+            const statusDot = document.querySelector('#status-container span');
+
+            if (isOpen) {
+                statusText.innerHTML = `Open Now <span class="font-light opacity-75 text-xs ml-1">until ${closeTime}</span>`;
+                statusDot.classList.remove('bg-red-500', 'bg-gray-500');
+                statusDot.classList.add('bg-green-500');
+            } else {
+                statusText.innerText = "Closed Now";
+                statusDot.classList.remove('bg-green-500', 'bg-gray-500');
+                statusDot.classList.add('bg-red-500');
+                statusDot.classList.remove('animate-pulse');
+            }
+        }
+
+        // Run immediately
+        checkStatus();
+    </script>
+</body>
+</html>

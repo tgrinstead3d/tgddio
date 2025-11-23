@@ -27,12 +27,23 @@ const Work = ({ theme, onOpenCaseStudy }) => {
               link: "https://www.smallsandpetite.com"
             },
             {
+              title: "Plank's Cafe & Pizzeria",
+              category: "Conceptual Redesign / Case Study",
+              desc: "A responsive, mobile-first redesign for a historic German Village staple.",
+              image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+              link: "/planks_redesign.html",
+              hasCaseStudy: true
+            },
+            /* 
+            // Keeping for later use
+            {
               title: "Brad's Welding",
               category: "Local Business / Services",
               desc: "A local mobile welding shop bringing years of expertise to the community.",
               image: "/brads_welding.webp",
               link: "https://www.bradsweldingohio.com"
             },
+            */
             {
               title: "Brad's Laserpro Studio",
               category: "Customization Service",

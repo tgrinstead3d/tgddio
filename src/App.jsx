@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import ManifestoModal from './components/ManifestoModal';
 import Navbar from './components/Navbar';
 import Philosophy from './components/Philosophy';
+import PlanksCaseStudyModal from './components/PlanksCaseStudyModal';
 import Services from './components/Services';
 import SNSCaseStudyModal from './components/SNSCaseStudyModal';
 import Work from './components/Work';
@@ -17,6 +18,7 @@ const App = () => {
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isSNSModalOpen, setIsSNSModalOpen] = useState(false);
+  const [isPlanksModalOpen, setIsPlanksModalOpen] = useState(false);
 
   // Handle scroll effects for navbar styling changes
   useEffect(() => {
@@ -38,12 +40,12 @@ const App = () => {
 
   // Prevent body scroll when manifesto is open
   useEffect(() => {
-    if (isManifestoOpen || isSNSModalOpen) {
+    if (isManifestoOpen || isSNSModalOpen || isPlanksModalOpen) {
       document.body.style.overflow = 'hidden';
     } else if (!isMobileMenuOpen) {
       document.body.style.overflow = 'unset';
     }
-  }, [isManifestoOpen, isMobileMenuOpen, isSNSModalOpen]);
+  }, [isManifestoOpen, isMobileMenuOpen, isSNSModalOpen, isPlanksModalOpen]);
 
   const navLinks = [
     { name: 'Philosophy', href: '#philosophy' },
@@ -80,6 +82,8 @@ const App = () => {
         onOpenCaseStudy={(project) => {
           if (project.title === "SNS Mobile Detailing") {
             setIsSNSModalOpen(true);
+          } else if (project.title === "Plank's Cafe & Pizzeria") {
+            setIsPlanksModalOpen(true);
           }
         }}
       />
@@ -98,6 +102,12 @@ const App = () => {
       <SNSCaseStudyModal
         isOpen={isSNSModalOpen}
         onClose={() => setIsSNSModalOpen(false)}
+        theme={theme}
+      />
+
+      <PlanksCaseStudyModal
+        isOpen={isPlanksModalOpen}
+        onClose={() => setIsPlanksModalOpen(false)}
         theme={theme}
       />
 
