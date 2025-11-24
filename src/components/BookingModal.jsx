@@ -1,14 +1,67 @@
+import emailjs from '@emailjs/browser';
 import { Send, X } from 'lucide-react';
 import React from 'react';
+import { supabase } from '../supabaseClient';
 
 const BookingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder for future database integration
-    alert("Thanks for your interest! We'll be in touch soon.");
-    onClose();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.target);
+    const rawPhone = formData.get('phone');
+    
+    // Basic sanitization
+    const data = {
+      name: formData.get('name').trim().slice(0, 100),
+      email: formData.get('email').trim().toLowerCase(),
+      phone: rawPhone ? rawPhone.trim().slice(0, 20) : null,
+      details: formData.get('details').trim().slice(0, 1000),
+    };
+
+    // Phone validation (optional but if present must be reasonable)
+    const phoneRegex = /^[\d\+\-\(\) ]{0,20}$/;
+    if (data.phone && !phoneRegex.test(data.phone)) {
+      alert("Please enter a valid phone number.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // 1. Submit to Supabase
+      const { error: supabaseError } = await supabase
+        .from('bookings')
+        .insert([data]);
+
+      if (supabaseError) throw supabaseError;
+
+      // 2. Send Email via EmailJS (only if Supabase succeeds)
+      // We don't want to block the user if email fails, but we should log it.
+      try {
+        await emailjs.sendForm(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          e.target,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+        console.log('Email sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send email:', emailError);
+        // We don't throw here because the booking was saved successfully.
+      }
+
+      alert("Thanks for your interest! We'll be in touch soon.");
+      onClose();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -36,9 +89,11 @@ const BookingModal = ({ isOpen, onClose }) => {
             <input
               type="text"
               id="name"
+              name="name"
               required
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
               placeholder="John Doe"
+              maxLength={100}
             />
           </div>
 
@@ -47,9 +102,11 @@ const BookingModal = ({ isOpen, onClose }) => {
             <input
               type="email"
               id="email"
+              name="email"
               required
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
               placeholder="john@example.com"
+              maxLength={100}
             />
           </div>
 
@@ -58,8 +115,10 @@ const BookingModal = ({ isOpen, onClose }) => {
             <input
               type="tel"
               id="phone"
+              name="phone"
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
               placeholder="+1 (555) 000-0000"
+              maxLength={20}
             />
           </div>
 
@@ -67,19 +126,22 @@ const BookingModal = ({ isOpen, onClose }) => {
             <label htmlFor="details" className="block text-sm font-bold text-slate-300 mb-2">Project Details</label>
             <textarea
               id="details"
+              name="details"
               rows="4"
               required
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none"
               placeholder="Tell us a bit about what you're looking for..."
+              maxLength={1000}
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 group"
+            disabled={isSubmitting}
+            className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 group"
           >
-            Send Request
-            <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+            {isSubmitting ? 'Sending...' : 'Send Request'}
+            {!isSubmitting && <Send size={20} className="group-hover:translate-x-1 transition-transform" />}
           </button>
         </form>
       </div>
