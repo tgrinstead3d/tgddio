@@ -1,5 +1,6 @@
 import { Send, X } from 'lucide-react';
 import React from 'react';
+import { supabase } from '../supabaseClient';
 
 const BookingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -17,19 +18,37 @@ const BookingModal = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     const formData = new FormData(e.target);
-    const data = {
-      'form-name': 'booking',
+    
+    // Prepare data for Supabase (clean, no form-name)
+    const supabaseData = {
       name: formData.get('name'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       details: formData.get('details'),
     };
 
+    // Prepare data for Netlify (needs form-name)
+    const netlifyData = {
+      'form-name': 'booking',
+      ...supabaseData
+    };
+
     try {
+      // 1. Submit to Supabase
+      const { error: supabaseError } = await supabase
+        .from('bookings')
+        .insert([supabaseData]);
+
+      if (supabaseError) {
+        console.error('Supabase error:', supabaseError);
+        throw supabaseError;
+      }
+
+      // 2. Submit to Netlify
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(data),
+        body: encode(netlifyData),
       });
 
       alert("Thanks for your interest! We'll be in touch soon.");
