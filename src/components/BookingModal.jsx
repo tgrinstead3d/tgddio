@@ -1,58 +1,36 @@
-import emailjs from '@emailjs/browser';
 import { Send, X } from 'lucide-react';
 import React from 'react';
-import { supabase } from '../supabaseClient';
 
 const BookingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  const encode = (data) => {
+    return Object.keys(data)
+      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const formData = new FormData(e.target);
-    const rawPhone = formData.get('phone');
-    
-    // Basic sanitization
     const data = {
-      name: formData.get('name').trim().slice(0, 100),
-      email: formData.get('email').trim().toLowerCase(),
-      phone: rawPhone ? rawPhone.trim().slice(0, 20) : null,
-      details: formData.get('details').trim().slice(0, 1000),
+      'form-name': 'booking',
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      details: formData.get('details'),
     };
 
-    // Phone validation (optional but if present must be reasonable)
-    const phoneRegex = /^[\d\+\-\(\) ]{0,20}$/;
-    if (data.phone && !phoneRegex.test(data.phone)) {
-      alert("Please enter a valid phone number.");
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
-      // 1. Submit to Supabase
-      const { error: supabaseError } = await supabase
-        .from('bookings')
-        .insert([data]);
-
-      if (supabaseError) throw supabaseError;
-
-      // 2. Send Email via EmailJS (only if Supabase succeeds)
-      // We don't want to block the user if email fails, but we should log it.
-      try {
-        await emailjs.sendForm(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          e.target,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        );
-        console.log('Email sent successfully');
-      } catch (emailError) {
-        console.error('Failed to send email:', emailError);
-        // We don't throw here because the booking was saved successfully.
-      }
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(data),
+      });
 
       alert("Thanks for your interest! We'll be in touch soon.");
       onClose();
@@ -83,7 +61,14 @@ const BookingModal = ({ isOpen, onClose }) => {
           <p className="text-slate-400">Tell us about your project and we'll get back to you within 24 hours.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          name="booking"
+          data-netlify="true"
+        >
+          <input type="hidden" name="form-name" value="booking" />
+          
           <div>
             <label htmlFor="name" className="block text-sm font-bold text-slate-300 mb-2">Name</label>
             <input
@@ -150,3 +135,4 @@ const BookingModal = ({ isOpen, onClose }) => {
 };
 
 export default BookingModal;
+
