@@ -13,8 +13,10 @@ import SmallsAndPetiteCaseStudyModal from './components/SmallsAndPetiteCaseStudy
 import SNSCaseStudyModal from './components/SNSCaseStudyModal';
 import Work from './components/Work';
 import { theme } from './theme';
+import { supabase } from './lib/supabase';
 
 const App = () => {
+  console.log('Supabase client:', supabase);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isManifestoOpen, setIsManifestoOpen] = useState(false);
@@ -60,7 +62,7 @@ const App = () => {
 
   return (
     <div className={`min-h-screen ${theme.bg} ${theme.text} font-sans selection:bg-cyan-500 selection:text-white transition-colors duration-500`}>
-      <Navbar 
+      <Navbar
         isScrolled={isScrolled}
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -69,20 +71,20 @@ const App = () => {
         theme={theme}
       />
 
-      <Hero 
+      <Hero
         setIsBookingOpen={setIsBookingOpen}
         theme={theme}
       />
 
-      <Philosophy 
+      <Philosophy
         setIsManifestoOpen={setIsManifestoOpen}
         theme={theme}
       />
 
       <Services theme={theme} />
 
-      <Work 
-        theme={theme} 
+      <Work
+        theme={theme}
         onOpenCaseStudy={(project) => {
           if (project.title === "SNS Mobile Detailing") {
             setIsSNSModalOpen(true);
@@ -96,12 +98,12 @@ const App = () => {
         }}
       />
 
-      <Contact 
+      <Contact
         setIsBookingOpen={setIsBookingOpen}
         theme={theme}
       />
 
-      <ManifestoModal 
+      <ManifestoModal
         isOpen={isManifestoOpen}
         onClose={() => setIsManifestoOpen(false)}
         theme={theme}
@@ -131,9 +133,9 @@ const App = () => {
         theme={theme}
       />
 
-      <BookingModal 
+      <BookingModal
         isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)} 
+        onClose={() => setIsBookingOpen(false)}
       />
 
       <Footer theme={theme} />
