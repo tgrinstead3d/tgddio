@@ -1,11 +1,16 @@
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { projects } from '../data/projects';
 
 const Work = ({ theme, onOpenCaseStudy }) => {
+  // Filter only featured projects for the homepage
+  const featuredProjects = projects.filter(project => project.featured);
+
   return (
     <section id="work" className={`py-16 md:py-24 ${theme.cardBgAlt} transition-colors duration-500`}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div>
             <h2 className={`${theme.accentText} font-bold tracking-widest uppercase mb-4 text-sm`}>Selected Work</h2>
             <h3 className={`text-3xl md:text-4xl font-bold ${theme.text}`}>
@@ -17,51 +22,8 @@ const Work = ({ theme, onOpenCaseStudy }) => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            {
-              title: "Smalls and Petite",
-              category: "E-Commerce / Local Business",
-              desc: "A boutique local vendor creating custom yard sign decorations. We built a digital presence to showcase their unique, personalized creations.",
-              image: "/smalls_and_petite.jpg",
-              link: "https://smallsandpetite.netlify.app",
-              hasCaseStudy: true
-            },
-            {
-              title: "Plank's Cafe & Pizzeria",
-              category: "Conceptual Redesign / Case Study",
-              desc: "A responsive, mobile-first redesign for a historic German Village staple.",
-              image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
-              link: "/planks_redesign.html",
-              hasCaseStudy: true
-            },
-            /* 
-            // Keeping for later use
-            {
-              title: "Brad's Welding",
-              category: "Local Business / Services",
-              desc: "A local mobile welding shop bringing years of expertise to the community.",
-              image: "/brads_welding.webp",
-              link: "https://www.bradsweldingohio.com"
-            },
-            */
-            {
-              title: "LaserPro Studio",
-              category: "Conceptual Redesign / Case Study",
-              desc: "The Director's Cut: Industrial dark mode aesthetic for a precision fabrication studio.",
-              image: "/laser.png",
-              link: "/bradswelding_redesign.html",
-              hasCaseStudy: true
-            },
-            {
-              title: "SNS Mobile Detailing",
-              category: "Mobile Automotive Detailing",
-              desc: "Local mobile auto detailer dedicated to their community and taking pride in every detail.",
-              image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=2070",
-              link: "/sns_redesign.html",
-              hasCaseStudy: true
-            }
-          ].map((project, idx) => (
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {featuredProjects.map((project, idx) => (
             <div 
               key={idx} 
               className={`group relative rounded-2xl overflow-hidden shadow-lg block`}
@@ -130,7 +92,7 @@ const Work = ({ theme, onOpenCaseStudy }) => {
                       {project.hasCaseStudy && (
                         <button
                           onClick={() => onOpenCaseStudy(project)}
-                          className="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm font-bold transition-all"
+                          className="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm font-bold transition-all cursor-pointer"
                         >
                           View Case Study
                         </button>
@@ -141,6 +103,16 @@ const Work = ({ theme, onOpenCaseStudy }) => {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Link 
+            to="/work"
+            className={`px-8 py-4 border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 rounded-xl transition-all duration-300 text-lg font-bold uppercase tracking-wider shadow-lg flex items-center gap-2 group`}
+          >
+            View More Work
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { Linkedin, Mail, Menu, Twitter, X } from 'lucide-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen, setIsBookingOpen, navLinks, theme }) => {
   return (
@@ -26,7 +27,8 @@ const Navbar = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen, setIsBookin
           {/* Logo Section */}
           <div className="flex items-center gap-3 z-50 relative shrink-0">
             {/* Text Logo */}
-            <button
+            <Link
+              to="/"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
@@ -36,7 +38,7 @@ const Navbar = ({ isScrolled, isMobileMenuOpen, setIsMobileMenuOpen, setIsBookin
               <div className="flex flex-col leading-tight text-left">
                 <span className="text-lg font-bold tracking-tighter whitespace-nowrap">TG Design & Development</span>
               </div>
-            </button>
+            </Link>
           </div>
 
           {/* Desktop Nav - Centered Links */}
