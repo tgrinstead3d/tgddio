@@ -7,20 +7,22 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Slab:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Roboto+Slab:wght@400;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- BRAND VARIABLES (From Brief) --- */
+        /* --- BRAND VARIABLES (Refined High-End Dark Theme) --- */
         :root {
+            --bg-dark: #0F1C15;
+            --bg-card: #15231c;
             --iron-green: #2F4538;
             --slate-gray: #3E4E50;
             --rust-orange: #C05726;
             --canvas: #F0EAD6;
             --white: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-light: #f5f5f5;
+            --text-light: #F0EAD6;
+            --text-gray: #a8b8b0;
         }
 
         /* --- RESET & BASE --- */
@@ -28,10 +30,11 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--canvas);
-            color: var(--text-dark);
-            line-height: 1.6;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
             overflow-x: hidden;
+            font-weight: 300;
         }
 
         h1, h2, h3, h4, .brand-font {
@@ -44,73 +47,99 @@
 
         /* --- COMPONENTS --- */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 28px;
+            padding: 18px 36px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 4px;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border-radius: 0;
             cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before { transform: scaleX(1); }
 
         .btn-primary {
             background-color: var(--rust-orange);
             color: var(--white);
-            box-shadow: 0 4px 10px rgba(192, 87, 38, 0.3);
         }
         .btn-primary:hover { 
             background-color: #a3461e; 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(192, 87, 38, 0.4);
+            letter-spacing: 3px;
         }
 
         .btn-outline {
-            border: 2px solid var(--canvas);
+            border: 1px solid var(--canvas);
             color: var(--canvas);
             background: transparent;
         }
         .btn-outline:hover {
             background-color: var(--canvas);
-            color: var(--iron-green);
-            transform: translateY(-2px);
+            color: var(--bg-dark);
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+            position: relative;
         }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--rust-orange);
+            margin: 20px auto 0;
+        }
+
         .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--iron-green);
+            font-size: 3rem;
+            color: var(--canvas);
             margin-bottom: 15px;
+            letter-spacing: -1px;
         }
         .section-title p {
             max-width: 600px;
             margin: 0 auto;
-            color: var(--slate-gray);
+            color: var(--text-gray);
+            font-weight: 300;
+            font-size: 1.1rem;
         }
 
         /* --- NAVIGATION --- */
         nav {
-            background-color: var(--iron-green);
-            color: var(--canvas);
-            padding: 1.2rem 0;
-            position: sticky;
+            background-color: transparent;
+            position: absolute;
             top: 0;
+            width: 100%;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            border-bottom: 4px solid var(--rust-orange);
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav-content {
@@ -120,489 +149,626 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             font-weight: 900;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
+            color: var(--canvas);
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 50px;
             align-items: center;
         }
 
         .nav-links a {
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
+            color: var(--canvas);
             position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--rust-orange);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--white); }
-
-        @media(max-width: 768px) {
-            .nav-links { display: none; } /* Simplified for demo */
-        }
+        .nav-links a:hover { opacity: 1; }
 
         /* --- HERO SECTION --- */
         .hero {
-            background-color: var(--iron-green);
-            background-image: linear-gradient(rgba(47, 69, 56, 0.85), rgba(47, 69, 56, 0.7)), url('ironwood_hero_bg.png');
+            height: 100vh;
+            min-height: 700px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-dark);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('ironwood_hero_bg.png');
             background-size: cover;
             background-position: center;
-            color: var(--canvas);
-            padding: 120px 0 140px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            z-index: 1;
+            filter: grayscale(40%) contrast(110%) brightness(0.6);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right, 
+                rgba(15, 28, 21, 0.98) 0%, 
+                rgba(15, 28, 21, 0.8) 50%, 
+                rgba(15, 28, 21, 0.4) 100%
+            );
+            z-index: 2;
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
+            max-width: 800px;
+            padding-top: 240px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            color: var(--rust-orange);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--rust-orange);
+            padding-bottom: 5px;
         }
 
         .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 24px;
-            line-height: 1.1;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            font-size: 5.5rem;
+            margin-bottom: 30px;
+            line-height: 1;
+            color: var(--white);
+            letter-spacing: -2px;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.95;
-            font-weight: 400;
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 50px;
+            color: rgba(240, 234, 214, 0.8);
+            font-weight: 300;
         }
 
-        /* --- FEATURES --- */
-        .features {
-            padding: 100px 0;
-            background-color: var(--canvas);
-            position: relative;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: #fff;
-            padding: 50px 40px;
-            border-top: 6px solid var(--iron-green);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-top-color: var(--rust-orange);
-        }
-
-        .feature-card i {
-            font-size: 2.5rem;
-            color: var(--slate-gray);
-            margin-bottom: 25px;
-            transition: color 0.3s;
-        }
-
-        .feature-card:hover i { color: var(--rust-orange); }
-
-        .feature-card h3 {
-            color: var(--iron-green);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .feature-card p {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        /* --- CALCULATOR SECTION --- */
-        .calculator-section {
-            background-color: var(--slate-gray);
-            color: var(--white);
-            padding: 100px 0;
-            background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);
-        }
-
-        .calculator-section .section-title h2 { color: var(--white); }
-        .calculator-section .section-title p { color: rgba(255,255,255,0.7); }
-
-        .calc-wrapper {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 0;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
-
-        .calc-inputs {
-            padding: 50px;
-            color: var(--text-dark);
-        }
-
-        .calc-inputs label {
-            display: block;
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--iron-green);
-            font-family: 'Roboto Slab', serif;
-        }
-
-        .range-container {
-            margin-bottom: 40px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            background: var(--rust-orange);
-            cursor: pointer;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            border: 2px solid #fff;
-        }
-
-        .radio-group {
+        .hero-stats {
             display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 60px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
         }
 
-        .radio-option {
-            flex: 1;
-            position: relative;
+        .stat h4 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 5px;
         }
-
-        .radio-option input {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .radio-option label {
-            display: block;
-            text-align: center;
-            background: #f5f5f5;
-            padding: 20px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            transition: 0.2s;
-            font-weight: 600;
-            color: var(--slate-gray);
-        }
-
-        .radio-option input:checked + label {
-            border-color: var(--rust-orange);
-            background: rgba(192, 87, 38, 0.1);
+        .stat span {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--rust-orange);
         }
 
-        .calc-result {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: var(--iron-green);
-            color: var(--white);
-            padding: 50px;
+        /* --- FEATURES (BLUEPRINT GRID) --- */
+        .features {
+            padding: 160px 0;
+            background-color: var(--bg-dark);
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .blueprint-header {
             text-align: center;
-            position: relative;
+            margin-bottom: 80px;
         }
 
-        .calc-result::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('ironwood_hero_bg.png');
-            opacity: 0.1;
-            mix-blend-mode: overlay;
-        }
-
-        .price-display {
-            font-family: 'Roboto Slab', serif;
-            font-size: 4.5rem;
-            font-weight: 700;
+        .blueprint-header h2 {
+            font-size: 3.5rem;
             color: var(--white);
-            margin: 10px 0 30px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .calc-result p {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .calc-result .btn {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-        }
-
-        /* --- FLEET SECTION --- */
-        .fleet-section {
-            padding: 100px 0;
-            background-color: var(--white);
-        }
-
-        .fleet-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .fleet-image {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .fleet-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .fleet-content h3 {
-            font-size: 2rem;
-            color: var(--iron-green);
             margin-bottom: 20px;
         }
-
-        .fleet-content p {
-            color: var(--slate-gray);
-            margin-bottom: 30px;
+        
+        .blueprint-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-gray);
             font-size: 1.1rem;
         }
 
-        .fleet-features li {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .fleet-features i {
-            color: var(--rust-orange);
-        }
-
-        /* --- CLIENT PORTAL --- */
-        .portal-section {
-            padding: 100px 0;
-            background-color: var(--canvas);
-            text-align: center;
-        }
-
-        .portal-mockup {
-            background: #fff;
-            max-width: 900px;
-            margin: 50px auto 0;
-            border-radius: 12px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border: 1px solid #e0e0e0;
-        }
-
-        .portal-header {
-            background: var(--iron-green);
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #fff;
-        }
-
-        .portal-body {
-            padding: 40px;
+        .blueprint-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            text-align: left;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
         }
 
-        .portal-card {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .blueprint-item {
+            padding: 60px 40px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            transition: background 0.3s;
         }
 
-        .portal-card h4 {
-            color: var(--slate-gray);
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+        .blueprint-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .bp-icon {
+            font-size: 2.5rem;
+            color: var(--rust-orange);
+            margin-bottom: 40px;
+        }
+
+        .bp-num {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.1);
+            margin-bottom: auto;
+        }
+
+        .bp-content h3 {
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .bp-content p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* --- FLEET (OVERLAPPING EDITORIAL) --- */
+        .fleet-section {
+            padding: 180px 0;
+            background-color: #121f18;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fleet-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+        }
+
+        .fleet-bg-text {
+            position: absolute;
+            top: -20px;
+            left: 40px;
+            font-size: 15vw;
+            font-weight: 900;
+            color: rgba(255,255,255,0.02);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .fleet-content-box {
+            width: 45%;
+            padding: 60px;
+            background: rgba(15, 28, 21, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .fleet-image-box {
+            position: absolute;
+            top: 0;
+            right: 40px;
+            width: 60%;
+            height: 100%;
+            background-image: url('iw_wrap.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            filter: grayscale(20%);
+        }
+        
+        .fleet-image-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #121f18 0%, transparent 20%);
+        }
+
+        .fleet-content-box h2 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        .fleet-content-box p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--canvas);
+            font-size: 1rem;
+        }
+
+        /* --- CALCULATOR --- */
+        .calculator-section {
+            padding: 160px 0;
+            background-color: var(--slate-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background decorative elements */
+        .calculator-section::before {
+            content: 'ESTIMATE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25vw;
+            font-weight: 900;
+            color: rgba(255,255,255,0.03);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .calc-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+        }
+
+        .calc-left {
+            padding: 60px;
+        }
+
+        .calc-right {
+            background: var(--rust-orange);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calc-right::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('ironwood_hero_bg.png');
+            opacity: 0.1;
+            mix-blend-mode: multiply;
+        }
+
+        .input-group { margin-bottom: 40px; }
+        
+        .input-group label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Roboto Slab', serif;
             font-weight: 700;
-            background: #e8f5e9;
-            color: #2e7d32;
+            color: var(--canvas);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Custom Range Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 30px;
+            height: 30px;
+            background: var(--rust-orange);
+            border: 4px solid var(--bg-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        /* Custom Radio Buttons */
+        .freq-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .freq-opt input { display: none; }
+        .freq-opt label {
+            display: block;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+        .freq-opt input:checked + label {
+            background: var(--rust-orange);
+            color: var(--white);
+            border-color: var(--rust-orange);
+        }
+
+        .price-large {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Roboto Slab', serif;
+            line-height: 1;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- PORTAL PREVIEW --- */
+        .portal-section {
+            padding: 160px 0;
+            background-color: var(--bg-dark);
+            text-align: center;
+        }
+
+        .device-mockup {
+            max-width: 1000px;
+            margin: 60px auto 0;
+            border: 12px solid #222;
+            border-radius: 20px;
+            background: #111;
+            overflow: hidden;
+            box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .portal-interface {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 500px;
+            text-align: left;
+        }
+
+        .pi-sidebar {
+            background: #0a0f0c;
+            padding: 30px;
+            border-right: 1px solid #222;
+        }
+
+        .pi-main {
+            background: #151515;
+            padding: 40px;
+        }
+
+        .pi-nav-item {
+            padding: 12px 0;
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .pi-nav-item.active { color: var(--rust-orange); font-weight: 600; }
+
+        .pi-card {
+            background: #1f1f1f;
+            padding: 25px;
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--iron-green);
-            color: rgba(255,255,255,0.6);
-            padding: 80px 0 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background-color: #050a08;
+            padding: 100px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-brand p {
+            max-width: 300px;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.95rem;
         }
 
         .footer-col h4 {
             color: var(--white);
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a:hover { color: var(--rust-orange); }
-
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
             font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-col ul li { margin-bottom: 15px; }
+        .footer-col ul li a { color: #888; font-size: 0.95rem; }
+        .footer-col ul li a:hover { color: var(--rust-orange); padding-left: 5px; }
+
+        /* --- RESPONSIVE --- */
+        @media(max-width: 1024px) {
+            .hero h1 { font-size: 4rem; }
+            .blueprint-grid { grid-template-columns: 1fr 1fr; }
+            .blueprint-item:nth-child(2n) { border-right: none; }
+            .fleet-content-box { width: 100%; }
+            .fleet-image-box { position: relative; width: 100%; height: 400px; right: auto; margin-bottom: -100px; }
+            .fleet-container { flex-direction: column-reverse; padding: 0 20px; }
+            .calc-container { grid-template-columns: 1fr; }
+            .portal-interface { grid-template-columns: 1fr; }
+            .pi-sidebar { display: none; }
         }
 
         @media(max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { text-align: left; padding: 0 20px; }
+            .hero-content { padding-top: 100px; }
             .hero h1 { font-size: 3rem; }
-            .calc-wrapper { grid-template-columns: 1fr; }
-            .fleet-grid { grid-template-columns: 1fr; }
-            .portal-body { grid-template-columns: 1fr; }
+            .hero-stats { gap: 30px; flex-wrap: wrap; }
+            .blueprint-grid { grid-template-columns: 1fr; border-left: none; }
+            .blueprint-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .fleet-section { padding: 100px 0; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         }
+
     </style>
 </head>
 <body>
 
     <nav>
         <div class="container nav-content">
-            <a href="#" class="logo brand-font" style="text-decoration: none; color: var(--canvas); font-size: 1.8rem; letter-spacing: 2px;">
+            <a href="#" class="logo brand-font">
+                <i class="fa-solid fa-tree" style="color: var(--rust-orange); font-size: 1.2rem;"></i>
                 IRONWOOD
             </a>
             <div class="nav-links">
                 <a href="#">Services</a>
                 <a href="#">Our Process</a>
-                <a href="#">Portfolio</a>
-                <a href="#">Client Portal <i class="fa-solid fa-lock" style="font-size: 0.8em; margin-left: 5px;"></i></a>
-                <button class="btn btn-primary">Get a Quote</button>
+                <a href="#">Commercial</a>
+                <a href="#">Client Portal</a>
+                <button class="btn btn-primary" style="padding: 12px 24px; font-size: 0.75rem;">Get Quote</button>
             </div>
         </div>
     </nav>
 
     <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
         <div class="container hero-content">
-            <h1>Rooted in Reliability.</h1>
-            <p>Premium landscape maintenance for the Pacific Northwest.<br>Electric equipment. Skilled crews. Zero excuses.</p>
-            <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center;">
+            <span class="hero-label">Premium Groundskeeping</span>
+            <h1>Rooted in<br>Reliability.</h1>
+            <p>We are the trade standard for landscape maintenance in the Pacific Northwest. Zero emissions. Zero excuses.</p>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                 <button class="btn btn-primary">Schedule Service</button>
-                <button class="btn btn-outline">View Our Work</button>
+                <button class="btn btn-outline">View Portfolio</button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <h4>100%</h4>
+                    <span>Electric Fleet</span>
+                </div>
+                <div class="stat">
+                    <h4>4.9</h4>
+                    <span>Client Rating</span>
+                </div>
+                <div class="stat">
+                    <h4>24h</h4>
+                    <span>Quote Turnaround</span>
+                </div>
             </div>
         </div>
     </header>
 
     <section class="features">
         <div class="container">
-            <div class="section-title">
-                <h2>The Ironwood Standard</h2>
-                <p>We aren't a side-hustle. We are a trade company treating your property with the respect it deserves.</p>
+            <div class="blueprint-header">
+                <h2>The Standard</h2>
+                <p>We approach groundskeeping not as a chore, but as a trade. Precision, reliability, and respect for your property are the cornerstones of our operation.</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h3>Electric Fleet</h3>
-                    <p>We use 100% electric commercial mowers and blowers. We keep your lawn manicured without the noise pollution or exhaust fumes.</p>
+            
+            <div class="blueprint-grid">
+                <div class="blueprint-item">
+                    <span class="bp-num">01</span>
+                    <i class="fa-solid fa-bolt bp-icon"></i>
+                    <div class="bp-content">
+                        <h3>Electric Fleet</h3>
+                        <p>Commercial-grade electric equipment means we maintain your grounds without the roar of engines or smell of exhaust.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                    <h3>Digital Invoicing</h3>
-                    <p>No checks under the doormat. Our secure client portal lets you view proof-of-service photos and pay instantly.</p>
+                <div class="blueprint-item">
+                    <span class="bp-num">02</span>
+                    <i class="fa-solid fa-file-invoice-dollar bp-icon"></i>
+                    <div class="bp-content">
+                        <h3>Digital First</h3>
+                        <p>Instant quotes, digital invoices, and photo-verified service completion via our secure client portal.</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h3>Fully Insured</h3>
-                    <p>We carry full liability insurance and worker's comp. Your property and our crew are always protected.</p>
+                <div class="blueprint-item">
+                    <span class="bp-num">03</span>
+                    <i class="fa-solid fa-shield-halved bp-icon"></i>
+                    <div class="bp-content">
+                        <h3>Fully Insured</h3>
+                        <p>Comprehensive liability and worker's comp. We protect our crew so we can protect your property.</p>
+                    </div>
+                </div>
+                <div class="blueprint-item">
+                    <span class="bp-num">04</span>
+                    <i class="fa-solid fa-user-tie bp-icon"></i>
+                    <div class="bp-content">
+                        <h3>Career Pros</h3>
+                        <p>Background-checked, uniformed, and trained professionals. No day laborers, only career groundskeepers.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="fleet-section">
-        <div class="container">
-            <div class="fleet-grid">
-                <div class="fleet-image">
-                    <img src="iw_wrap.png" alt="Ironwood Groundskeeping Truck">
-                </div>
-                <div class="fleet-content">
-                    <h3>Professional Grade.</h3>
-                    <p>Our fleet represents our commitment to quality. Clean, branded vehicles and uniformed crews ensure we always look as professional as your property will.</p>
-                    <ul class="fleet-features">
-                        <li><i class="fa-solid fa-check"></i> Uniformed, Background-Checked Crews</li>
-                        <li><i class="fa-solid fa-check"></i> 100% Electric Equipment</li>
-                        <li><i class="fa-solid fa-check"></i> GPS-Tracked Fleet</li>
-                        <li><i class="fa-solid fa-check"></i> Quiet & Eco-Friendly</li>
-                    </ul>
-                    <button class="btn btn-primary" style="margin-top: 20px;">Meet The Team</button>
-                </div>
+        <div class="fleet-bg-text">FLEET</div>
+        <div class="fleet-container">
+            <div class="fleet-content-box">
+                <h2>Professional Grade.</h2>
+                <p>Our fleet represents our commitment to quality. Clean, branded vehicles and uniformed crews ensure we always look as professional as your property will.</p>
+                
+                <ul class="check-list">
+                    <li><i class="fa-solid fa-check"></i> GPS-Tracked Fleet Reliability</li>
+                    <li><i class="fa-solid fa-check"></i> Quiet & Eco-Friendly Operations</li>
+                    <li><i class="fa-solid fa-check"></i> Consistent Service Schedule</li>
+                    <li><i class="fa-solid fa-check"></i> Instant Communication</li>
+                </ul>
+                <button class="btn btn-primary" style="margin-top: 30px;">Meet The Team</button>
             </div>
+            <div class="fleet-image-box"></div>
         </div>
     </section>
 
@@ -610,43 +776,43 @@
         <div class="container">
             <div class="section-title">
                 <h2>Instant Estimate</h2>
-                <p>Transparent pricing based on your property size. No hidden fees.</p>
+                <p>Transparent pricing based on your property size.</p>
             </div>
             
-            <div class="calc-wrapper">
-                <div class="calc-inputs">
-                    
-                    <div class="range-container">
-                        <label for="lotSize">Approximate Lawn Size: <span id="sizeVal" style="color:var(--rust-orange)">2500</span> sq ft</label>
+            <div class="calc-container">
+                <div class="calc-left">
+                    <div class="input-group">
+                        <label>
+                            <span>Lawn Size</span>
+                            <span id="sizeVal" style="color: var(--rust-orange)">2,500 sq ft</span>
+                        </label>
                         <input type="range" id="lotSize" min="500" max="10000" step="100" value="2500">
-                        <div style="display:flex; justify-content:space-between; font-size: 0.8rem; margin-top:10px; color: #888;">
-                            <span>Townhome (500)</span>
-                            <span>Estate (10k+)</span>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.8rem; color: #666;">
+                            <span>Townhome</span>
+                            <span>Estate</span>
                         </div>
                     </div>
 
-                    <label>Service Frequency</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" name="freq" id="weekly" value="1" checked>
-                            <label for="weekly">Weekly</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="freq" id="biweekly" value="1.2">
-                            <label for="biweekly">Bi-Weekly</label>
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Service Frequency</label>
+                        <div class="freq-options">
+                            <div class="freq-opt">
+                                <input type="radio" name="freq" id="weekly" value="1" checked>
+                                <label for="weekly">Weekly</label>
+                            </div>
+                            <div class="freq-opt">
+                                <input type="radio" name="freq" id="biweekly" value="1.2">
+                                <label for="biweekly">Bi-Weekly</label>
+                            </div>
                         </div>
                     </div>
-
-                    <p style="font-size: 0.9rem; color: #666; margin-top: 20px; line-height: 1.5;">
-                        *Includes mowing, edging, and blowing. Bi-weekly service carries a premium due to increased overgrowth management.
-                    </p>
                 </div>
 
-                <div class="calc-result">
-                    <p style="font-weight: 600; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Estimated Price Per Visit</p>
-                    <div class="price-display" id="totalPrice">$0</div>
-                    <button class="btn btn-primary" style="background: var(--white); color: var(--rust-orange);">Book This Rate</button>
-                    <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.6;">*Final price subject to on-site verification</p>
+                <div class="calc-right">
+                    <span style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; opacity: 0.9; position: relative; z-index: 2;">Estimated Per Visit</span>
+                    <div class="price-large" id="totalPrice">$65</div>
+                    <button class="btn" style="background: var(--white); color: var(--rust-orange); position: relative; z-index: 2; margin-top: 20px;">Book Now</button>
+                    <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7; position: relative; z-index: 2;">*Subject to on-site verification</p>
                 </div>
             </div>
         </div>
@@ -659,56 +825,44 @@
                 <p>Manage your property from anywhere. Complete transparency.</p>
             </div>
 
-            <div class="portal-mockup">
-                <div class="portal-header">
-                    <span style="font-weight: 700; letter-spacing: 1px;"><i class="fa-solid fa-tree"></i> IRONWOOD PORTAL</span>
-                    <div style="display: flex; gap: 15px; align-items: center;">
-                        <span style="font-size: 0.9rem;">Welcome, John</span>
-                        <div style="width: 35px; height: 35px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+            <div class="device-mockup">
+                <div class="portal-interface">
+                    <div class="pi-sidebar">
+                        <div style="margin-bottom: 30px; font-weight: 700; color: #fff; letter-spacing: 1px;">MY ACCOUNT</div>
+                        <div class="pi-nav-item active">Dashboard</div>
+                        <div class="pi-nav-item">Service History</div>
+                        <div class="pi-nav-item">Invoices</div>
+                        <div class="pi-nav-item">Settings</div>
                     </div>
-                </div>
-                <div class="portal-body">
-                    <div class="portal-main">
-                        <div class="portal-card">
+                    <div class="pi-main">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                            <h3 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.2rem; color: #fff;">Overview</h3>
+                            <span style="color: #666; font-size: 0.9rem;">Welcome, John</span>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div class="pi-card">
+                                <div style="color: #888; font-size: 0.8rem; margin-bottom: 10px;">NEXT SERVICE</div>
+                                <div style="color: var(--rust-orange); font-size: 1.4rem; font-weight: 700;">Oct 19</div>
+                                <div style="color: #fff; font-size: 0.9rem;">Weekly Maintenance</div>
+                            </div>
+                            <div class="pi-card">
+                                <div style="color: #888; font-size: 0.8rem; margin-bottom: 10px;">OUTSTANDING</div>
+                                <div style="color: #fff; font-size: 1.4rem; font-weight: 700;">$0.00</div>
+                                <div style="color: #66bb6a; font-size: 0.8rem;">All paid up</div>
+                            </div>
+                        </div>
+
+                        <div class="pi-card" style="margin-top: 20px;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                                <h4>Recent Service</h4>
-                                <span class="status-badge">Completed</span>
+                                <span style="color: #fff; font-weight: 600;">Recent Activity</span>
+                                <span style="color: var(--rust-orange); font-size: 0.9rem;">View All</span>
                             </div>
-                            <div style="display: flex; gap: 10px;">
-                                <div style="height: 80px; width: 120px; background: #ddd; border-radius: 4px;"></div>
-                                <div style="height: 80px; width: 120px; background: #ddd; border-radius: 4px;"></div>
-                            </div>
-                            <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Service completed on Oct 12. Mowed, edged, and cleared debris.</p>
-                        </div>
-                        <div class="portal-card">
-                            <h4>Upcoming Schedule</h4>
-                            <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
-                                <div style="background: var(--iron-green); color: #fff; padding: 10px; border-radius: 8px; text-align: center;">
-                                    <div style="font-size: 0.8rem;">OCT</div>
-                                    <div style="font-weight: 700; font-size: 1.2rem;">19</div>
-                                </div>
+                            <div style="display: flex; gap: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 15px;">
+                                <div style="width: 50px; height: 50px; background: #333; border-radius: 4px;"></div>
                                 <div>
-                                    <div style="font-weight: 600;">Weekly Maintenance</div>
-                                    <div style="font-size: 0.9rem; color: #666;">Est. Arrival: 9:00 AM</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portal-sidebar">
-                        <div class="portal-card">
-                            <h4>Outstanding Balance</h4>
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--text-dark); margin: 10px 0;">$0.00</div>
-                            <button class="btn btn-primary" style="width: 100%; font-size: 0.8rem; padding: 10px;">View History</button>
-                        </div>
-                        <div class="portal-card">
-                            <h4>Your Crew</h4>
-                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
-                                    <img src="iw_uniform.png" alt="Crew Member" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; font-size: 0.9rem;">Mike & Sarah</div>
-                                    <div style="font-size: 0.8rem; color: #666;">4.9 ★ Rating</div>
+                                    <div style="color: #fff; font-size: 0.9rem; font-weight: 500;">Service Completed</div>
+                                    <div style="color: #666; font-size: 0.8rem;">Oct 12 - Mowed, Edged, Blow...</div>
                                 </div>
                             </div>
                         </div>
@@ -721,11 +875,12 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h3 class="brand-font" style="color: var(--white); margin-bottom: 20px; font-size: 1.8rem; letter-spacing: 2px;">
+                <div class="footer-brand">
+                    <div class="logo brand-font">
+                        <i class="fa-solid fa-tree" style="color: var(--rust-orange);"></i>
                         IRONWOOD
-                    </h3>
-                    <p>Premium landscape maintenance for the discerning homeowner.</p>
+                    </div>
+                    <p>Premium landscape maintenance for the discerning homeowner in the Pacific Northwest.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Services</h4>
@@ -742,7 +897,7 @@
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Careers</a></li>
                         <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Terms</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -754,30 +909,23 @@
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Ironwood Groundskeeping LLC. All rights reserved.</p>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; color: #444; font-size: 0.8rem;">
+                &copy; 2025 Ironwood Groundskeeping LLC. All rights reserved.
             </div>
         </div>
     </footer>
 
     <script>
-        // Elements
         const slider = document.getElementById('lotSize');
         const output = document.getElementById('sizeVal');
         const priceDisplay = document.getElementById('totalPrice');
         const radios = document.getElementsByName('freq');
 
-        // Logic
         function calculate() {
-            // Base service fee
             const baseFee = 45; 
-            
-            // Cost per square foot
             const pricePerSqFt = 0.008; 
-            
             const size = parseInt(slider.value);
             
-            // Get frequency multiplier
             let multiplier = 1;
             for(let radio of radios){
                 if(radio.checked){
@@ -785,22 +933,15 @@
                 }
             }
 
-            // Calculation
             let rawPrice = (baseFee + (size * pricePerSqFt)) * multiplier;
-            
-            // Rounding logic for "pretty" prices (round to nearest 5)
             let finalPrice = Math.ceil(rawPrice / 5) * 5;
 
-            // Update UI
-            output.innerHTML = size.toLocaleString();
+            output.innerHTML = size.toLocaleString() + ' sq ft';
             priceDisplay.innerHTML = '$' + finalPrice;
         }
 
-        // Event Listeners
         slider.addEventListener('input', calculate);
         radios.forEach(r => r.addEventListener('change', calculate));
-
-        // Init
         calculate();
     </script>
 </body>
