@@ -25,6 +25,11 @@ const AllWork = ({ theme }) => {
     }
   }, [isSNSModalOpen, isPlanksModalOpen, isLaserProModalOpen, isSmallsModalOpen, isBradsModalOpen, isIronwoodModalOpen]);
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const onOpenCaseStudy = (project) => {
     if (project.title === "SNS Mobile Detailing") {
       setIsSNSModalOpen(true);
@@ -57,11 +62,11 @@ const AllWork = ({ theme }) => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="flex flex-col gap-12">
             {projects.map((project, idx) => (
               <div 
                 key={idx} 
-                className={`group relative rounded-2xl overflow-hidden shadow-lg block`}
+                className={`group relative rounded-2xl overflow-hidden shadow-lg block h-[500px]`}
               >
                 {/* Project Image - Clickable */}
                 {project.hasCaseStudy ? (
@@ -99,35 +104,35 @@ const AllWork = ({ theme }) => {
                 <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent pointer-events-none z-10"></div>
 
                 {project.link === '#' ? (
-                  <div className="relative h-96 p-8 flex items-center justify-center z-20 pointer-events-none">
+                  <div className="relative h-full p-8 flex items-center justify-center z-20 pointer-events-none">
                     <div className="text-3xl md:text-4xl font-bold text-white uppercase tracking-widest border-4 border-white/20 p-6 rounded-xl backdrop-blur-sm">
                       Coming Soon
                     </div>
                   </div>
                 ) : (
-                  <div className="relative h-96 p-8 flex flex-col justify-end z-20 pointer-events-none">
+                  <div className="relative h-full p-8 md:p-12 flex flex-col justify-end z-20 pointer-events-none">
                     <div className={`transform transition-all duration-500 translate-y-4 group-hover:translate-y-0`}>
                       <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">
                         {project.category}
                       </div>
-                      <h4 className="text-3xl font-bold text-white mb-3">{project.title}</h4>
-                      <p className="text-white/90 text-lg opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 delay-100">
+                      <h4 className="text-4xl md:text-5xl font-bold text-white mb-4">{project.title}</h4>
+                      <p className="text-white/90 text-xl max-w-2xl opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 delay-100">
                         {project.desc}
                       </p>
 
-                      <div className="mt-6 flex items-center gap-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 delay-200 pointer-events-auto">
+                      <div className="mt-8 flex items-center gap-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 delay-200 pointer-events-auto">
                         <a 
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-white font-bold hover:text-cyan-400 transition-colors"
+                          className="flex items-center gap-2 text-white font-bold hover:text-cyan-400 transition-colors text-lg"
                         >
-                          Visit Site <ArrowRight size={18} />
+                          Visit Site <ArrowRight size={20} />
                         </a>
                         {project.hasCaseStudy && (
                           <button
                             onClick={() => onOpenCaseStudy(project)}
-                            className="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm font-bold transition-all cursor-pointer"
+                            className="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg text-white text-base font-bold transition-all cursor-pointer"
                           >
                             View Case Study
                           </button>
