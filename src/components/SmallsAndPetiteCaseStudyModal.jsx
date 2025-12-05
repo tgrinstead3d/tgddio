@@ -46,7 +46,7 @@ const SmallsAndPetiteCaseStudyModal = ({ isOpen, onClose, theme }) => {
                 Smalls and Petite is a boutique local vendor specializing in custom yard sign decorations. They are currently in the process of moving from one hosting service to another. We are using this migration as a strategic opportunity to completely streamline and renew the design of their digital presence.
               </p>
               <p className={`${theme.textMuted} leading-relaxed`}>
-                The goal is to elevate the brand from a standard local business to a premium, "upper middle class" aesthetic that reflects the quality and personalization of their products.
+                The goal is to elevate the brand from a standard local business to a **premium, boutique** aesthetic that reflects the quality and personalization of their products, while remaining welcoming to all customers.
               </p>
             </div>
             <div className={`p-6 rounded-xl ${theme.cardBgAlt} border ${theme.border}`}>
@@ -75,13 +75,13 @@ const SmallsAndPetiteCaseStudyModal = ({ isOpen, onClose, theme }) => {
               <div className="space-y-4">
                 <h4 className={`text-xl font-bold ${theme.accentText}`}>The Problem</h4>
                 <p className={`${theme.textMuted} leading-relaxed`}>
-                  The client's previous platform was functional but lacked the visual polish needed to attract a higher-end clientele. The migration process presented a risk of losing brand continuity, but also a massive opportunity to shed legacy design debt.
+                  The client's previous platform was functional but lacked the visual polish needed to stand out. The migration process presented a risk of losing brand continuity, but also a massive opportunity to shed legacy design debt.
                 </p>
               </div>
               <div className="space-y-4">
                 <h4 className={`text-xl font-bold ${theme.secondaryText}`}>The Solution</h4>
                 <p className={`${theme.textMuted} leading-relaxed`}>
-                  We are implementing a design that feels "upper middle class"—clean, sophisticated, and trustworthy. The new site uses a very specific, curated color scheme requested by the client to evoke a sense of warmth and exclusivity, moving away from generic templates.
+                  We are implementing a design that feels **refined and trustworthy**—clean, sophisticated, and professional. The new site uses a very specific, curated color scheme requested by the client to evoke a sense of warmth and exclusivity, moving away from generic templates.
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ const SmallsAndPetiteCaseStudyModal = ({ isOpen, onClose, theme }) => {
             <h3 className={`text-xl font-bold ${theme.text} mb-6`}>Key Design Decisions</h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <div className="mb-3">
+                <div className="h-12 flex items-center mb-3">
                    <div className="h-2 w-full bg-gradient-to-r from-slate-200 to-slate-400 rounded"></div>
                 </div>
                 <h4 className={`font-bold ${theme.text} text-sm mb-2`}>Elevated Typography</h4>
@@ -101,16 +101,16 @@ const SmallsAndPetiteCaseStudyModal = ({ isOpen, onClose, theme }) => {
                 </p>
               </div>
               <div>
-                <div className="mb-3 flex items-center justify-center h-8">
+                <div className="h-12 flex items-center mb-3">
                    <div className="w-8 h-8 rounded-full bg-rose-100 border-2 border-rose-300"></div>
                 </div>
                 <h4 className={`font-bold ${theme.text} text-sm mb-2`}>Curated Palette</h4>
                 <p className={`text-xs ${theme.textMuted}`}>
-                  A specific color scheme tailored to the client's vision of an "upper middle class" feel.
+                  A specific color scheme tailored to the client's vision of a refined feel.
                 </p>
               </div>
               <div>
-                <div className="mb-3">
+                <div className="h-12 flex items-center mb-3">
                   <p className="font-mono text-sm text-white">SIMPLICITY</p>
                 </div>
                 <h4 className={`font-bold ${theme.text} text-sm mb-2`}>Streamlined UX</h4>
@@ -136,6 +136,14 @@ const SmallsAndPetiteCaseStudyModal = ({ isOpen, onClose, theme }) => {
               <p className="text-slate-400">The new site will launch following client approval.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="https://smallsandpetite.netlify.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`px-6 py-4 border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2`}
+              >
+                View Concept Site <ExternalLink size={20} />
+              </a>
               <button 
                 disabled
                 className={`px-6 py-4 border ${theme.border} bg-slate-800/50 text-slate-500 rounded-xl font-bold text-lg cursor-not-allowed flex items-center justify-center gap-2`}
